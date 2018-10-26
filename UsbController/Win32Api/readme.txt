@@ -1,0 +1,1 @@
+﻿Source and inspiration: http://www.codeproject.com/Articles/18099/A-USB-HID-Component-for-C

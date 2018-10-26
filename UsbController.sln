@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2046
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsbController", "UsbController\UsbController.csproj", "{7EE0C27A-DE32-4F23-9787-22B425C0A952}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Sidewinder.ForceFeedback2", "Microsoft.Sidewinder.ForceFeedback2\Microsoft.Sidewinder.ForceFeedback2.csproj", "{62DFE939-708A-4E0A-A4E4-B82AB513CF60}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7EE0C27A-DE32-4F23-9787-22B425C0A952}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EE0C27A-DE32-4F23-9787-22B425C0A952}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EE0C27A-DE32-4F23-9787-22B425C0A952}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EE0C27A-DE32-4F23-9787-22B425C0A952}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62DFE939-708A-4E0A-A4E4-B82AB513CF60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62DFE939-708A-4E0A-A4E4-B82AB513CF60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62DFE939-708A-4E0A-A4E4-B82AB513CF60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62DFE939-708A-4E0A-A4E4-B82AB513CF60}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D7CDDB0F-CBC0-4A40-AEB4-82315A7879B6}
+	EndGlobalSection
+EndGlobal
