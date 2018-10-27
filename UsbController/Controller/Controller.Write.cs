@@ -11,7 +11,7 @@ namespace UsbController
         /// <summary>
         /// Gets the prefered length for the write buffer.
         /// </summary>
-        protected int WriteLength => stream.Capabilities.OutputReportByteLength;
+        public int WriteLength => stream.Capabilities.OutputReportByteLength;
 
         /// <summary>
         /// Write a buffer to the USB device

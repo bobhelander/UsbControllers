@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{62DFE939-708A-4E0A-A4E4-B82AB513CF60}</ProjectGuid>
+    <ProjectGuid>{81804826-1498-447F-84DE-09200C8304FA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Microsoft.Sidewinder.ForceFeedback2</RootNamespace>
-    <AssemblyName>Microsoft.Sidewinder.ForceFeedback2</AssemblyName>
+    <RootNamespace>Joystick.Common</RootNamespace>
+    <AssemblyName>Joystick.Common</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,16 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Joystick.cs" />
-    <Compile Include="models\State.cs" />
-    <Compile Include="models\States.cs" />
+    <Compile Include="interfaces\IState.cs" />
+    <Compile Include="interfaces\IStates.cs" />
+    <Compile Include="JoystickBase.cs" />
+    <Compile Include="JoystickBase.Observable.cs" />
+    <Compile Include="JoystickBase.Observer.cs" />
+    <Compile Include="JoystickBase.Unsubscriber.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Joystick.Common\Joystick.Common.csproj">
-      <Project>{81804826-1498-447f-84de-09200c8304fa}</Project>
-      <Name>Joystick.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\UsbController\UsbController.csproj">
       <Project>{7ee0c27a-de32-4f23-9787-22b425c0a952}</Project>
       <Name>UsbController</Name>

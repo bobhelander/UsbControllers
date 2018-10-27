@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Microsoft.Sidewinder.ForceFeedback2.models
+namespace LeoBodnar.BBI32.models
 {
     public class States : IStates
     {

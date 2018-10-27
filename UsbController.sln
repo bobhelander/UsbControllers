@@ -7,6 +7,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsbController", "UsbControl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Sidewinder.ForceFeedback2", "Microsoft.Sidewinder.ForceFeedback2\Microsoft.Sidewinder.ForceFeedback2.csproj", "{62DFE939-708A-4E0A-A4E4-B82AB513CF60}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Sidewinder.StrategicCommander", "Microsoft.Sidewinder.StrategicCommander\Microsoft.Sidewinder.StrategicCommander.csproj", "{A1085E0A-0868-46E9-9596-9B61303D20AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Joystick.Common", "Joystick.Common\Joystick.Common.csproj", "{81804826-1498-447F-84DE-09200C8304FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Sidewinder.GameVoice", "Microsoft.Sidewinder.GameVoice\Microsoft.Sidewinder.GameVoice.csproj", "{9B382D87-8151-490F-BC43-B7F598F04ABA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thrustmaster.Warthog.Throttle", "Thrustmaster.Warthog.Throttle\Thrustmaster.Warthog.Throttle.csproj", "{93D0DABB-42C9-4175-BE07-DE8146709FCD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CHProducts.ProPedals", "CHProducts.ProPedals\CHProducts.ProPedals.csproj", "{04C005D3-F7E7-40C6-BAE6-74C4EC9FC320}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeoBodnar.BBI32", "LeoBodnar.BBI32\LeoBodnar.BBI32.csproj", "{BA6BB94D-FF28-469C-99A2-22E770F3C362}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +33,30 @@ Global
 		{62DFE939-708A-4E0A-A4E4-B82AB513CF60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62DFE939-708A-4E0A-A4E4-B82AB513CF60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62DFE939-708A-4E0A-A4E4-B82AB513CF60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1085E0A-0868-46E9-9596-9B61303D20AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1085E0A-0868-46E9-9596-9B61303D20AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1085E0A-0868-46E9-9596-9B61303D20AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1085E0A-0868-46E9-9596-9B61303D20AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81804826-1498-447F-84DE-09200C8304FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81804826-1498-447F-84DE-09200C8304FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81804826-1498-447F-84DE-09200C8304FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81804826-1498-447F-84DE-09200C8304FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B382D87-8151-490F-BC43-B7F598F04ABA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B382D87-8151-490F-BC43-B7F598F04ABA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B382D87-8151-490F-BC43-B7F598F04ABA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B382D87-8151-490F-BC43-B7F598F04ABA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93D0DABB-42C9-4175-BE07-DE8146709FCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93D0DABB-42C9-4175-BE07-DE8146709FCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93D0DABB-42C9-4175-BE07-DE8146709FCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93D0DABB-42C9-4175-BE07-DE8146709FCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04C005D3-F7E7-40C6-BAE6-74C4EC9FC320}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04C005D3-F7E7-40C6-BAE6-74C4EC9FC320}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04C005D3-F7E7-40C6-BAE6-74C4EC9FC320}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04C005D3-F7E7-40C6-BAE6-74C4EC9FC320}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA6BB94D-FF28-469C-99A2-22E770F3C362}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA6BB94D-FF28-469C-99A2-22E770F3C362}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA6BB94D-FF28-469C-99A2-22E770F3C362}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA6BB94D-FF28-469C-99A2-22E770F3C362}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

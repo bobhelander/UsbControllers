@@ -1,5 +1,5 @@
 ﻿using Joystick.Common;
-using Microsoft.Sidewinder.ForceFeedback2.models;
+using LeoBodnar.BBI32.models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,19 +7,19 @@ using System.Text;
 using System.Threading.Tasks;
 using UsbController.models;
 
-namespace Microsoft.Sidewinder.ForceFeedback2
+namespace LeoBodnar.BBI32
 {
     public partial class Joystick : JoystickBase<States>
     {
         /// <summary>
-        /// The vendor id for the Strategic Commander device.
+        /// The vendor id for the Leo Bodnar BBI-32 device.
         /// </summary>
-        public const int VendorId = 0x045e;
+        public const int VendorId = 0x1DD2;
 
         /// <summary>
-        /// The product id for the Strategic Commander device.
+        /// The product id for the Leo Bodnar BBI-32 device.
         /// </summary>
-        public const int ProductId = 0x0033;
+        public const int ProductId = 0x1150;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Joystick"/> class.

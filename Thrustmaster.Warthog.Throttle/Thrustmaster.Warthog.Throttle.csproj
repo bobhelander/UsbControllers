@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{62DFE939-708A-4E0A-A4E4-B82AB513CF60}</ProjectGuid>
+    <ProjectGuid>{93D0DABB-42C9-4175-BE07-DE8146709FCD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Microsoft.Sidewinder.ForceFeedback2</RootNamespace>
-    <AssemblyName>Microsoft.Sidewinder.ForceFeedback2</AssemblyName>
+    <RootNamespace>Thrustmaster.Warthog.Throttle</RootNamespace>
+    <AssemblyName>Thrustmaster.Warthog.Throttle</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -42,8 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Joystick.cs" />
-    <Compile Include="models\State.cs" />
     <Compile Include="models\States.cs" />
+    <Compile Include="models\Button.cs" />
+    <Compile Include="models\State.cs" />
+    <Compile Include="models\Switches.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -56,5 +58,6 @@
       <Name>UsbController</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

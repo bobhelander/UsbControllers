@@ -1,5 +1,5 @@
-﻿using Joystick.Common;
-using Microsoft.Sidewinder.ForceFeedback2.models;
+﻿using CHProducts.ProPedals.models;
+using Joystick.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,19 +7,19 @@ using System.Text;
 using System.Threading.Tasks;
 using UsbController.models;
 
-namespace Microsoft.Sidewinder.ForceFeedback2
+namespace CHProducts.ProPedals
 {
     public partial class Joystick : JoystickBase<States>
     {
         /// <summary>
-        /// The vendor id for the Strategic Commander device.
+        /// The vendor id for the CH Pedals device.
         /// </summary>
-        public const int VendorId = 0x045e;
+        public const int VendorId = 0x068e;
 
         /// <summary>
-        /// The product id for the Strategic Commander device.
+        /// The product id for the CH Pedals device.
         /// </summary>
-        public const int ProductId = 0x0033;
+        public const int ProductId = 0xc501;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Joystick"/> class.

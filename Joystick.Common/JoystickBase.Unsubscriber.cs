@@ -1,20 +1,19 @@
-﻿using Microsoft.Sidewinder.ForceFeedback2.models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Microsoft.Sidewinder.ForceFeedback2
+namespace Joystick.Common
 {
-    public partial class Joystick
+    public partial class JoystickBase<T> 
     {
         private class Unsubscriber : IDisposable
         {
-            private List<IObserver<States>> _observers;
-            private IObserver<States> _observer;
+            private List<IObserver<T>> _observers;
+            private IObserver<T> _observer;
 
-            public Unsubscriber(List<IObserver<States>> observers, IObserver<States> observer)
+            public Unsubscriber(List<IObserver<T>> observers, IObserver<T> observer)
             {
                 this._observers = observers;
                 this._observer = observer;

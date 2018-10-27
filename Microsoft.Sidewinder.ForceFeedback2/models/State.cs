@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Joystick.Common.interfaces;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Microsoft.Sidewinder.ForceFeedback2.models
 {
-    public class State
+    public class State : IState
     {
         /// <summary>
         /// An empty status.
@@ -73,22 +74,6 @@ namespace Microsoft.Sidewinder.ForceFeedback2.models
                 Hat = hat,
                 Buttons = buttons,
             };
-        }
-
-        /// <summary>
-        /// Provides a string representation of the current status.
-        /// </summary>
-        /// <returns>
-        /// A string containing all the components of the status.
-        /// </returns>
-        public override string ToString()
-        {
-            return string.Format(
-                CultureInfo.InvariantCulture,
-                "[x,y,r:{0},{1},{2}]",
-                this.X,
-                this.Y,
-                this.R);
         }
     }
 }

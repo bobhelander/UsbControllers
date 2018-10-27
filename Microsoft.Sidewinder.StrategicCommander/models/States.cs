@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Microsoft.Sidewinder.ForceFeedback2.models
+namespace Microsoft.Sidewinder.StrategicCommander.models
 {
     public class States : IStates
     {

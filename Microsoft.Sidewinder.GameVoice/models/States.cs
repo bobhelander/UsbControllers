@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Microsoft.Sidewinder.ForceFeedback2.models
+namespace Microsoft.Sidewinder.GameVoice.models
 {
     public class States : IStates
     {

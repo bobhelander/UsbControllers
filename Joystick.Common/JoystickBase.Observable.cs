@@ -1,17 +1,17 @@
-﻿using Microsoft.Sidewinder.ForceFeedback2.models;
+﻿using Joystick.Common.interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Microsoft.Sidewinder.ForceFeedback2
+namespace Joystick.Common
 {
-    public partial class Joystick : IObservable<States>
+    public partial class JoystickBase<T> : IObservable<T> where T : IStates, new()
     {
-        private List<IObserver<States>> observers = new List<IObserver<States>>();
+        private List<IObserver<T>> observers = new List<IObserver<T>>();
 
-        public IDisposable Subscribe(IObserver<States> observer)
+        public IDisposable Subscribe(IObserver<T> observer)
         {
             if (!observers.Contains(observer))
                 observers.Add(observer);
@@ -19,7 +19,7 @@ namespace Microsoft.Sidewinder.ForceFeedback2
             return new Unsubscriber(observers, observer);
         }
 
-        private void Notify(State state)
+        private void Notify(IState state)
         {
             States.Previous = States.Current;
             States.Current = state;

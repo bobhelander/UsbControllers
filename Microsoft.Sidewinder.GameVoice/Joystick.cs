@@ -1,5 +1,5 @@
 ﻿using Joystick.Common;
-using Microsoft.Sidewinder.ForceFeedback2.models;
+using Microsoft.Sidewinder.GameVoice.models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,19 +7,19 @@ using System.Text;
 using System.Threading.Tasks;
 using UsbController.models;
 
-namespace Microsoft.Sidewinder.ForceFeedback2
+namespace Microsoft.Sidewinder.GameVoice
 {
     public partial class Joystick : JoystickBase<States>
     {
         /// <summary>
-        /// The vendor id for the Strategic Commander device.
+        /// The vendor id for the Sidewinder Game Voice device.
         /// </summary>
         public const int VendorId = 0x045e;
 
         /// <summary>
-        /// The product id for the Strategic Commander device.
+        /// The product id for the Sidewinder Game Voice device.
         /// </summary>
-        public const int ProductId = 0x0033;
+        public const int ProductId = 0x003B;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Joystick"/> class.
@@ -30,6 +30,15 @@ namespace Microsoft.Sidewinder.ForceFeedback2
         public Joystick(string devicePath) 
             : base(devicePath)
         {
+        }
+
+        /// <summary>
+        /// Defines the enabled lights on the controller.
+        /// </summary>
+        public byte Lights
+        {
+            get { return Controller.FeatureValue[1]; }
+            set { Controller.FeatureValue = new byte[] { 0x00, value }; }
         }
     }
 }
