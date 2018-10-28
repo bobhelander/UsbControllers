@@ -28,11 +28,6 @@ namespace Microsoft.Sidewinder.ForceFeedback2
         public const string ProductGuid = "001b045e-0000-0000-0000-504944564944";
 
         /// <summary>
-        /// ForceFeedback Controller
-        /// </summary>
-        public ForceFeedback.Controller.ForceFeedback ForceFeedback { get; private set; }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="Joystick"/> class.
         /// </summary>
         /// <param name="devicePath">
@@ -41,20 +36,6 @@ namespace Microsoft.Sidewinder.ForceFeedback2
         public Joystick(string devicePath) 
             : base(devicePath)
         {
-            ForceFeedback = new ForceFeedback.Controller.ForceFeedback();
-            
-            // Aquire the force feedback device
-            ForceFeedback.InitializeInput(ProductGuid);
-        }
-
-        public List<string> LoadEffects(string fileName)
-        {
-            return ForceFeedback.LoadEffects(fileName);
-        }
-
-        public void PlayEffect(string name)
-        {
-            ForceFeedback.PlayEffect(name);
         }
     }
 }
