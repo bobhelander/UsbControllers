@@ -4,16 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{62DFE939-708A-4E0A-A4E4-B82AB513CF60}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Microsoft.Sidewinder.ForceFeedback2</RootNamespace>
-    <AssemblyName>Microsoft.Sidewinder.ForceFeedback2</AssemblyName>
+    <ProjectGuid>{3412E157-F01C-460C-A0EF-931827B8E6C4}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>ConsoleTest</RootNamespace>
+    <AssemblyName>ConsoleTest</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -41,24 +43,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Joystick.cs" />
-    <Compile Include="models\State.cs" />
-    <Compile Include="models\States.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ForceFeedback.Controller\ForceFeedback.Controller.csproj">
-      <Project>{2b0fe46f-0f50-4278-99e4-c13420da5855}</Project>
-      <Name>ForceFeedback.Controller</Name>
-    </ProjectReference>
+    <None Include="App.config" />
+    <Content Include="effects\FEdit2.ffe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Joystick.Common\Joystick.Common.csproj">
       <Project>{81804826-1498-447f-84de-09200c8304fa}</Project>
       <Name>Joystick.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Microsoft.Sidewinder.ForceFeedback2\Microsoft.Sidewinder.ForceFeedback2.csproj">
+      <Project>{62dfe939-708a-4e0a-a4e4-b82ab513cf60}</Project>
+      <Name>Microsoft.Sidewinder.ForceFeedback2</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Thrustmaster.Warthog.Throttle\Thrustmaster.Warthog.Throttle.csproj">
+      <Project>{93d0dabb-42c9-4175-be07-de8146709fcd}</Project>
+      <Name>Thrustmaster.Warthog.Throttle</Name>
     </ProjectReference>
     <ProjectReference Include="..\UsbController\UsbController.csproj">
       <Project>{7ee0c27a-de32-4f23-9787-22b425c0a952}</Project>
       <Name>UsbController</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

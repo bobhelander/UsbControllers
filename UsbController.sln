@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CHProducts.ProPedals", "CHP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeoBodnar.BBI32", "LeoBodnar.BBI32\LeoBodnar.BBI32.csproj", "{BA6BB94D-FF28-469C-99A2-22E770F3C362}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForceFeedback.Controller", "ForceFeedback.Controller\ForceFeedback.Controller.csproj", "{2B0FE46F-0F50-4278-99E4-C13420DA5855}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTest", "ConsoleTest\ConsoleTest.csproj", "{3412E157-F01C-460C-A0EF-931827B8E6C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +61,14 @@ Global
 		{BA6BB94D-FF28-469C-99A2-22E770F3C362}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA6BB94D-FF28-469C-99A2-22E770F3C362}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA6BB94D-FF28-469C-99A2-22E770F3C362}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B0FE46F-0F50-4278-99E4-C13420DA5855}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B0FE46F-0F50-4278-99E4-C13420DA5855}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B0FE46F-0F50-4278-99E4-C13420DA5855}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B0FE46F-0F50-4278-99E4-C13420DA5855}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3412E157-F01C-460C-A0EF-931827B8E6C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3412E157-F01C-460C-A0EF-931827B8E6C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3412E157-F01C-460C-A0EF-931827B8E6C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3412E157-F01C-460C-A0EF-931827B8E6C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

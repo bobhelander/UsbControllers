@@ -81,7 +81,11 @@ namespace UsbController
                 {
                     // Copy the buffer first
                     //var buffer = await CopyBuffer(this.readBuffer);
+                    
+                    // Process the change
+                    CallReadEventAsync(buffer, size, stateCounter);
 
+                    /*
                     if (ProcessAllReports)
                     {
                         // Process the change
@@ -110,6 +114,7 @@ namespace UsbController
                             }
                         }
                     }
+                    */
                     return await Task.FromResult(true);
                 }
             }

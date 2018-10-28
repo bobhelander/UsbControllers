@@ -42,6 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Joystick.cs" />
+    <Compile Include="models\Hat.cs" />
+    <Compile Include="models\Light.cs" />
+    <Compile Include="models\SwitchNeutral.cs" />
     <Compile Include="models\States.cs" />
     <Compile Include="models\Button.cs" />
     <Compile Include="models\State.cs" />

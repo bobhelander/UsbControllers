@@ -11,14 +11,14 @@ namespace Microsoft.Sidewinder.StrategicCommander
     public partial class Joystick : JoystickBase<States>
     {
         /// <summary>
-        /// The vendor id for the Sidewinder Force Feedback 2 device.
+        /// The vendor id for the Strategic Commander device.
         /// </summary>
         public const int VendorId = 0x045e;
 
         /// <summary>
-        /// The product id for the Sidewinder Force Feedback 2 device.
+        /// The product id for the Strategic Commander device.
         /// </summary>
-        public const int ProductId = 0x001b;
+        public const int ProductId = 0x0033;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Joystick"/> class.
