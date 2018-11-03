@@ -7,21 +7,26 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForceFeedback.Controller", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTest", "ConsoleTest\ConsoleTest.csproj", "{3412E157-F01C-460C-A0EF-931827B8E6C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Usb.Hid.Connection", "Usb.Hid.Connection\Usb.Hid.Connection.csproj", "{84AA92D8-6E9C-4F2A-B9C6-615F24398275}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Usb.Hid.Connection", "Usb.Hid.Connection\Usb.Hid.Connection.csproj", "{84AA92D8-6E9C-4F2A-B9C6-615F24398275}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Joystick.Common", "Joystick.Common\Joystick.Common.csproj", "{32A7AC5A-00E2-4212-87E2-D7BA6F4F4316}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Joystick.Common", "Joystick.Common\Joystick.Common.csproj", "{32A7AC5A-00E2-4212-87E2-D7BA6F4F4316}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CHProducts.ProPedals", "CHProducts.ProPedals\CHProducts.ProPedals.csproj", "{26EDB109-4170-411C-BBFC-617EDA3F7780}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CHProducts.ProPedals", "CHProducts.ProPedals\CHProducts.ProPedals.csproj", "{26EDB109-4170-411C-BBFC-617EDA3F7780}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeoBodnar.BBI32", "LeoBodnar.BBI32\LeoBodnar.BBI32.csproj", "{0F5A5484-572B-4E93-ABB6-1D52A74AED77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeoBodnar.BBI32", "LeoBodnar.BBI32\LeoBodnar.BBI32.csproj", "{0F5A5484-572B-4E93-ABB6-1D52A74AED77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Sidewinder.ForceFeedback2", "Microsoft.Sidewinder.ForceFeedback2\Microsoft.Sidewinder.ForceFeedback2.csproj", "{C30DE25C-2B73-4CC8-9BEB-4BB3DBF8312A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Sidewinder.ForceFeedback2", "Microsoft.Sidewinder.ForceFeedback2\Microsoft.Sidewinder.ForceFeedback2.csproj", "{C30DE25C-2B73-4CC8-9BEB-4BB3DBF8312A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Sidewinder.GameVoice", "Microsoft.Sidewinder.GameVoice\Microsoft.Sidewinder.GameVoice.csproj", "{10EB019B-BC71-430E-AF13-392091B5DCE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Sidewinder.GameVoice", "Microsoft.Sidewinder.GameVoice\Microsoft.Sidewinder.GameVoice.csproj", "{10EB019B-BC71-430E-AF13-392091B5DCE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Sidewinder.StrategicCommander", "Microsoft.Sidewinder.StrategicCommander\Microsoft.Sidewinder.StrategicCommander.csproj", "{95D9EBFA-3890-4E6D-A4BA-E73086D8B16E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Sidewinder.StrategicCommander", "Microsoft.Sidewinder.StrategicCommander\Microsoft.Sidewinder.StrategicCommander.csproj", "{95D9EBFA-3890-4E6D-A4BA-E73086D8B16E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thrustmaster.Warthog.Throttle", "Thrustmaster.Warthog.Throttle\Thrustmaster.Warthog.Throttle.csproj", "{D8DE0674-794A-43E1-A4C1-A1D8419ED3A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Thrustmaster.Warthog.Throttle", "Thrustmaster.Warthog.Throttle\Thrustmaster.Warthog.Throttle.csproj", "{D8DE0674-794A-43E1-A4C1-A1D8419ED3A8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C78F87A8-F80F-4329-9F34-5E5DDA308B6A}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

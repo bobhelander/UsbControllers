@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>bobhelander</Authors>
+    <PackageLicenseUrl>https://github.com/bobhelander/UsbControllers/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/bobhelander/UsbControllers</PackageProjectUrl>
+    <PackageTags>USB, joystick, Leo Bodnar, BBI32</PackageTags>
+    <Description>Mapped outputs for Leo Bodnar's BBI32 device http://www.leobodnar.com/shop/index.php?main_page=product_info&amp;cPath=94&amp;products_id=205</Description>
   </PropertyGroup>
 
   <ItemGroup>

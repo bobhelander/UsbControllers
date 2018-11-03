@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>bobhelander</Authors>
+    <Description>Mapped outputs for the CH Products Pro Pedals.</Description>
+    <PackageLicenseUrl>https://github.com/bobhelander/UsbControllers/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/bobhelander/UsbControllers</PackageProjectUrl>
+    <PackageTags>USB, joystick, CH Products, Pro Pedals</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

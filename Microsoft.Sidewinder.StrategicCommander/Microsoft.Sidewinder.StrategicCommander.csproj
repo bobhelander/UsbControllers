@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>bobhelander</Authors>
+    <Description>Mapped outputs for the Microsoft Sidewinder Strategic Commander controller.</Description>
+    <PackageLicenseUrl>https://github.com/bobhelander/UsbControllers/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/bobhelander/UsbControllers</PackageProjectUrl>
+    <PackageTags>USB, joystick, Strategic Commander, Sidewinder</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
