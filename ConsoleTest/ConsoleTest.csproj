@@ -53,18 +53,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Joystick.Common\Joystick.Common.csproj">
-      <Project>{32a7ac5a-00e2-4212-87e2-d7ba6f4f4316}</Project>
-      <Name>Joystick.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Microsoft.Sidewinder.ForceFeedback2\Microsoft.Sidewinder.ForceFeedback2.csproj">
-      <Project>{c30de25c-2b73-4cc8-9beb-4bb3dbf8312a}</Project>
-      <Name>Microsoft.Sidewinder.ForceFeedback2</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Thrustmaster.Warthog.Throttle\Thrustmaster.Warthog.Throttle.csproj">
-      <Project>{d8de0674-794a-43e1-a4c1-a1d8419ed3a8}</Project>
-      <Name>Thrustmaster.Warthog.Throttle</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Usb.Hid.Connection\Usb.Hid.Connection.csproj">
       <Project>{84aa92d8-6e9c-4f2a-b9c6-615f24398275}</Project>
       <Name>Usb.Hid.Connection</Name>
