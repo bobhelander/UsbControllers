@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>bobhelander</Authors>
+    <Description>Allows reading USB HID reports directly from the listed devices.  Reports are mapped into device specific mappings.  Allows setting of the lights on the supported devices.  Reports are subscribable with the IObservable interface.
+
+Devices Supported:
+Microsoft Sidwinder Force Feedback 2 (FFB2)
+Microsoft Sidwinder Strategic Commander
+Microsoft Sidwinder Game Voice
+Thrustmaster Warthog Throttle
+CH Products Pro Pedals
+Leo Bodnar BBI32   http://www.leobodnar.com/</Description>
+    <PackageLicenseUrl>https://github.com/bobhelander/UsbControllers/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/bobhelander/UsbControllers</PackageProjectUrl>
+    <Version>1.0.1</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Usb.Hid.Connection" Version="1.0.1" />
+  </ItemGroup>
+
+</Project>
