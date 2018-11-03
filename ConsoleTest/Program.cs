@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Sidewinder.ForceFeedback2.models;
-using UsbController;
+using Usb.Hid.Connection;
 
 namespace ConsoleTest
 {

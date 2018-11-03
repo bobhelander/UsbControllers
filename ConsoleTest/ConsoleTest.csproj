@@ -54,22 +54,21 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Joystick.Common\Joystick.Common.csproj">
-      <Project>{81804826-1498-447f-84de-09200c8304fa}</Project>
+      <Project>{32a7ac5a-00e2-4212-87e2-d7ba6f4f4316}</Project>
       <Name>Joystick.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Microsoft.Sidewinder.ForceFeedback2\Microsoft.Sidewinder.ForceFeedback2.csproj">
-      <Project>{62dfe939-708a-4e0a-a4e4-b82ab513cf60}</Project>
+      <Project>{c30de25c-2b73-4cc8-9beb-4bb3dbf8312a}</Project>
       <Name>Microsoft.Sidewinder.ForceFeedback2</Name>
     </ProjectReference>
     <ProjectReference Include="..\Thrustmaster.Warthog.Throttle\Thrustmaster.Warthog.Throttle.csproj">
-      <Project>{93d0dabb-42c9-4175-be07-de8146709fcd}</Project>
+      <Project>{d8de0674-794a-43e1-a4c1-a1d8419ed3a8}</Project>
       <Name>Thrustmaster.Warthog.Throttle</Name>
     </ProjectReference>
-    <ProjectReference Include="..\UsbController\UsbController.csproj">
-      <Project>{7ee0c27a-de32-4f23-9787-22b425c0a952}</Project>
-      <Name>UsbController</Name>
+    <ProjectReference Include="..\Usb.Hid.Connection\Usb.Hid.Connection.csproj">
+      <Project>{84aa92d8-6e9c-4f2a-b9c6-615f24398275}</Project>
+      <Name>Usb.Hid.Connection</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UsbController.models;
+using Usb.Hid.Connection.models;
 
 namespace Joystick.Common
 {

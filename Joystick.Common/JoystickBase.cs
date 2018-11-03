@@ -17,7 +17,7 @@ namespace Joystick.Common
         /// <summary>
         /// UBS Connection to the device
         /// </summary>
-        protected UsbController.Controller Controller { get; set; }
+        protected Usb.Hid.Connection.Controller Controller { get; set; }
 
         /// <summary>
         /// Disconnect from the device
@@ -32,7 +32,7 @@ namespace Joystick.Common
         /// </param>
         public JoystickBase(string devicePath)
         {
-            Controller = new UsbController.Controller(devicePath);
+            Controller = new Usb.Hid.Connection.Controller(devicePath);
             ControllerUnsubscriber = Controller.Subscribe(this);
         }
 

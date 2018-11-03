@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Thrustmaster.Warthog.Throttle.models;
-using UsbController.models;
 
 namespace Thrustmaster.Warthog.Throttle
 {
