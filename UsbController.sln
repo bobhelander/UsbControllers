@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTest", "ConsoleTest\ConsoleTest.csproj", "{3412E157-F01C-460C-A0EF-931827B8E6C4}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Usb.Hid.Connection", "Usb.Hid.Connection\Usb.Hid.Connection.csproj", "{84AA92D8-6E9C-4F2A-B9C6-615F24398275}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C78F87A8-F80F-4329-9F34-5E5DDA308B6A}"
@@ -13,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Usb.GameControllers", "Usb.GameControllers\Usb.GameControllers.csproj", "{757D3C81-2051-40F3-A398-8BA2E1599595}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Usb.GameControllers", "Usb.GameControllers\Usb.GameControllers.csproj", "{757D3C81-2051-40F3-A398-8BA2E1599595}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForceFeedback.Controller", "ForceFeedback.Controller\ForceFeedback.Controller.csproj", "{2B0FE46F-0F50-4278-99E4-C13420DA5855}"
 EndProject
@@ -23,10 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3412E157-F01C-460C-A0EF-931827B8E6C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3412E157-F01C-460C-A0EF-931827B8E6C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3412E157-F01C-460C-A0EF-931827B8E6C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3412E157-F01C-460C-A0EF-931827B8E6C4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{84AA92D8-6E9C-4F2A-B9C6-615F24398275}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{84AA92D8-6E9C-4F2A-B9C6-615F24398275}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84AA92D8-6E9C-4F2A-B9C6-615F24398275}.Release|Any CPU.ActiveCfg = Release|Any CPU
