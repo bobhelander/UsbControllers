@@ -41,6 +41,11 @@ namespace Usb.Hid.Connection
         public bool ContinueProcessing { get; set; }
 
         /// <summary>
+        /// Flag when the USB device continuously sends reports
+        /// </summary>
+        public bool ContinuousUsb { get; set; }
+
+        /// <summary>
         /// Reads a message from the device
         /// </summary>
         /// <returns></returns>
@@ -53,7 +58,11 @@ namespace Usb.Hid.Connection
                 var bufferIndex = (int)(counter % readBufferCount);
 
                 var size = await this.stream.ReadAsync(readBuffers[bufferIndex], 0, ReadLength);
-                await ProcessSerialMessage(size, readBuffers[bufferIndex], ReadLength, counter);
+
+                if (ContinuousUsb)
+                    await ProcessSerialMessageRemoveJitter(size, readBuffers[bufferIndex], ReadLength, counter);
+                else
+                    await ProcessSerialMessage(size, readBuffers[bufferIndex], ReadLength, counter);
 
                 counter++;
             }
@@ -79,19 +88,41 @@ namespace Usb.Hid.Connection
             {
                 if (0 < observers.Count)
                 {
-                    // Copy the buffer first
-                    //var buffer = await CopyBuffer(this.readBuffer);
-                    
                     // Process the change
                     CallReadEventAsync(buffer, size, stateCounter);
 
-                    /*
-                    if (ProcessAllReports)
-                    {
-                        // Process the change
-                        CallReadEventAsync(buffer, size, stateCounter);
-                    }
-                    else if (stateCounter > 0)
+                    return await Task.FromResult(true);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return await Task.FromResult(false);
+        }
+
+        /// <summary>
+        /// Processes the buffer received from the device
+        /// </summary>
+        /// <param name="size"></param>
+        /// <param name="buffer"></param>
+        /// <param name="requestedLength"></param>
+        /// <param name="stateCounter"></param>
+        /// <returns></returns>
+        private async Task<bool> ProcessSerialMessageRemoveJitter(int size, byte[] buffer, int requestedLength, ulong stateCounter)
+        {
+            if (size != requestedLength)
+            {
+                // Throw this read out.  
+                //log.Error($"Read Invalid Size {requestedLength}, Actual size {size}");
+                return false;
+            }
+            try
+            {
+                if (0 < observers.Count)
+                {
+                    if (stateCounter > 0)
                     {
                         var lastBufferIndex = (int)((stateCounter - 1) % readBufferCount);
                         var lastReadBuffer = this.readBuffers[lastBufferIndex];
@@ -114,7 +145,7 @@ namespace Usb.Hid.Connection
                             }
                         }
                     }
-                    */
+
                     return await Task.FromResult(true);
                 }
             }
