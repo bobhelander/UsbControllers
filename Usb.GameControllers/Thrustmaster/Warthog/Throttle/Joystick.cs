@@ -29,6 +29,9 @@ namespace Usb.GameControllers.Thrustmaster.Warthog.Throttle
         public Joystick(string devicePath) 
             : base(devicePath)
         {
+            Controller.ContinuousUsb = true;
+            // Warthog returns raw vales starting at 16.  Only look for changes before that.
+            Controller.ContinuousUsbReportSize = 15;
         }
 
         /// <summary>

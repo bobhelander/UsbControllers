@@ -29,6 +29,7 @@ namespace Usb.GameControllers.LeoBodnar.BBI32
         public Joystick(string devicePath) 
             : base(devicePath)
         {
+            Controller.ContinuousUsb = true;
         }
     }
 }

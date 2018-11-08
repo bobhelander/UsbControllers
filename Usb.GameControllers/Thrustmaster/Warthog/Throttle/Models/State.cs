@@ -90,8 +90,9 @@ namespace Usb.GameControllers.Thrustmaster.Warthog.Throttle.Models
 
             //short rawX = BitConverter.ToInt16(values, 16);
             //short rawY = BitConverter.ToInt16(values, 18);
-            //short rawZ = BitConverter.ToInt16(values, 20);
-            //short rawZr = BitConverter.ToInt16(values, 22);
+            //short rawSlider = BitConverter.ToInt16(values, 20);
+            //short rawZ = BitConverter.ToInt16(values, 22);
+            //short rawZr = BitConverter.ToInt16(values, 24);
 
             byte ledLights = values[26];
             byte ledBrightness = values[27];
