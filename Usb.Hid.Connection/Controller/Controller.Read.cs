@@ -16,11 +16,6 @@ namespace Usb.Hid.Connection
         protected int ReadLength => stream.Capabilities.InputReportByteLength;
 
         /// <summary>
-        /// Remove jitter from continuous button events
-        /// </summary>
-        public Stopwatch Stopwatch { get; set; }
-
-        /// <summary>
         /// The number of buffers available.
         /// </summary>
         private ulong readBufferCount = 3;
@@ -41,9 +36,15 @@ namespace Usb.Hid.Connection
         public bool ContinueProcessing { get; set; }
 
         /// <summary>
-        /// Flag when the USB device continuously sends reports
+        /// Flag when the USB device continuously sends reports.  Setting this will compare the reports
+        /// and only send when the reports change.
         /// </summary>
-        public bool ContinuousUsb { get; set; }
+        public bool ContinuousUsb { get; set; } = false;
+
+        /// <summary>
+        /// Only compare this much of the report for changes.
+        /// </summary>
+        public int ContinuousUsbReportSize { get; set; } = 0;
 
         /// <summary>
         /// Reads a message from the device
@@ -124,25 +125,17 @@ namespace Usb.Hid.Connection
                 {
                     if (stateCounter > 0)
                     {
+                        // If the value has been set, use it. 
+                        var takeCount = (0 == ContinuousUsbReportSize) ? size : ContinuousUsbReportSize;
+
                         var lastBufferIndex = (int)((stateCounter - 1) % readBufferCount);
                         var lastReadBuffer = this.readBuffers[lastBufferIndex];
 
-                        // Remove jitter around the buttons
-                        if (false == buffer.SequenceEqual(lastReadBuffer))
+                        // Call only if changed.  Take is used to reduce the report size to only the first part of the report needed.
+                        if (false == buffer.Take(takeCount).SequenceEqual(lastReadBuffer.Take(takeCount)))
                         {
                             // The read buffer changed since the last read
-                            // Restart the stopwatch
-                            Stopwatch.Restart();
-                        }
-
-                        // After the state remains stable
-                        if (Stopwatch.ElapsedMilliseconds > 100)
-                        {
-                            if (buffer.SequenceEqual(lastReadBuffer))
-                            {
-                                // Process the change
-                                CallReadEventAsync(buffer, size, stateCounter);
-                            }
+                            CallReadEventAsync(buffer, size, stateCounter);
                         }
                     }
 
