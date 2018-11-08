@@ -7,7 +7,7 @@
     <Company />
     <Product>Usb.Hid.Connection</Product>
     <Description>Observable USB connection.   Written to help with connecting to HID devices and remapping controller buttons.</Description>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <PackageLicenseUrl>https://github.com/bobhelander/UsbControllers/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/bobhelander/UsbControllers</PackageProjectUrl>
     <RepositoryUrl>https://github.com/bobhelander/UsbControllers</RepositoryUrl>

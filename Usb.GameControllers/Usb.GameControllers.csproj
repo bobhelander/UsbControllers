@@ -19,7 +19,7 @@ Leo Bodnar BBI32   http://www.leobodnar.com/</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Usb.Hid.Connection" Version="1.0.1" />
+    <PackageReference Include="Usb.Hid.Connection" Version="1.0.2" />
   </ItemGroup>
 
 </Project>
