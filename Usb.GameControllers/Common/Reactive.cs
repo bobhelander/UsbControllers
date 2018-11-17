@@ -31,5 +31,21 @@ namespace Usb.GameControllers.Common
         {
             return (ButtonReleased(value, button) || ButtonPressed(value, button));
         }
+
+        /// <summary>
+        /// Used with Tri-state switches.  This tests if the switch was moved to the middle state
+        /// </summary>
+        public static bool MultiSwitchStateOff(IStates value, UInt32 switchValue)
+        {
+            return ((value.Previous.Buttons & switchValue) != 0 && (value.Current.Buttons & switchValue) == 0);
+        }
+
+        /// <summary>
+        /// Used with Tri-state switches.  This tests if the switch was moved from the middle state
+        /// </summary>
+        public static bool MultiSwitchStateOn(IStates value, UInt32 switchValue)
+        {
+            return ((value.Previous.Buttons & switchValue) == 0 && (value.Current.Buttons & switchValue) != 0);
+        }
     }
 }
