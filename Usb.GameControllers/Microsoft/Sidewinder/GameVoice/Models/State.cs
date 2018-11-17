@@ -29,7 +29,7 @@ namespace Usb.GameControllers.Microsoft.Sidewinder.GameVoice.Models
         /// <summary>
         /// Gets of sets the pressed buttons.
         /// </summary>
-        public byte Buttons { get; set; }
+        public UInt32 Buttons { get; set; }
 
         /// <summary>
         /// Creates a <see cref="SwgvStatus"/> from the output bytes of the controller.

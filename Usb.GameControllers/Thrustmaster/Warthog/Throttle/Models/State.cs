@@ -19,7 +19,7 @@ namespace Usb.GameControllers.Thrustmaster.Warthog.Throttle.Models
         /// <summary>
         /// Gets or sets all the buttons.
         /// </summary>
-        public UInt32 buttons { get; set; }
+        public UInt32 Buttons { get; set; }
 
         /// <summary>
         /// Gets or sets the x-axis position of the controller.
@@ -102,7 +102,7 @@ namespace Usb.GameControllers.Thrustmaster.Warthog.Throttle.Models
 
             return new State()
             {
-                buttons = b,
+                Buttons = b,
                 Z = z,
                 Zr = zr,
                 Slider = slider,

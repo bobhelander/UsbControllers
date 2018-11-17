@@ -32,6 +32,11 @@ namespace Usb.GameControllers.CHProducts.ProPedals.Models
         public int R { get; set; }
 
         /// <summary>
+        /// Gets of sets the pressed buttons.  None on this controller
+        /// </summary>
+        public UInt32 Buttons { get; set; } = 0;
+
+        /// <summary>
         /// Creates a <see cref="State"/> from the output bytes of the controller.
         /// </summary>
         internal static State Create(byte[] values)

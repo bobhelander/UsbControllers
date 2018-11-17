@@ -8,5 +8,6 @@ namespace Usb.GameControllers.Interfaces
 {
     public interface IState
     {
+        UInt32 Buttons { get; set; }
     }
 }
