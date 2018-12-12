@@ -9,7 +9,7 @@ namespace Usb.GameControllers.Common
     {
         public static bool ButtonsChanged(IStates value)
         {
-            return value.Current.Buttons != value.Current.Buttons;
+            return value.Previous.Buttons != value.Current.Buttons;
         }
 
         public static bool ButtonDown(IStates value, UInt32 button)
