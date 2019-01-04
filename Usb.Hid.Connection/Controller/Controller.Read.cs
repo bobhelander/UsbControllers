@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace Usb.Hid.Connection
         /// <summary>
         /// The number of buffers available.
         /// </summary>
-        private ulong readBufferCount = 3;
+        private ulong readBufferCount = 10;
 
         /// <summary>
         /// The buffers used when reading the stream.
@@ -45,6 +46,21 @@ namespace Usb.Hid.Connection
         /// Only compare this much of the report for changes.
         /// </summary>
         public int ContinuousUsbReportSize { get; set; } = 0;
+
+        /// <summary>
+        /// Look at all of the reports to determine button state
+        /// </summary>
+        public bool ContinuousUsbDebounce { get; set; } = false;
+
+        /// <summary>
+        /// Button state start index in the read buffer
+        /// </summary>
+        public int ContinuousUsbDebounceButtonsIndex { get; set; } = 0;
+
+        /// <summary>
+        /// Holder the the last debounced read
+        /// </summary>
+        private byte[] lastBuffer;
 
         /// <summary>
         /// Reads a message from the device
@@ -111,7 +127,7 @@ namespace Usb.Hid.Connection
         /// <param name="requestedLength"></param>
         /// <param name="stateCounter"></param>
         /// <returns></returns>
-        private async Task<bool> ProcessSerialMessageRemoveJitter(int size, byte[] buffer, int requestedLength, ulong stateCounter)
+        private async Task<bool> ProcessSerialMessageRemoveJitter(int size, byte[] rawbuffer, int requestedLength, ulong stateCounter)
         {
             if (size != requestedLength)
             {
@@ -123,17 +139,32 @@ namespace Usb.Hid.Connection
             {
                 if (0 < observers.Count)
                 {
+                    
+
                     if (stateCounter > 0)
                     {
+                        var compareBuffer = CopyBuffer(lastBuffer, size);
+                        var buffer = CopyBuffer(rawbuffer, size);
+
+                        if (ContinuousUsbDebounce)
+                        {
+                            // Debounce buffer across all ReadBuffers
+                            var buttons = DebounceButtons();
+
+                            // Replace the buttons
+                            Array.Copy(BitConverter.GetBytes(buttons), 0, buffer, ContinuousUsbDebounceButtonsIndex, 4);
+                        }
+
                         // If the value has been set, use it. 
                         var takeCount = (0 == ContinuousUsbReportSize) ? size : ContinuousUsbReportSize;
 
-                        var lastBufferIndex = (int)((stateCounter - 1) % readBufferCount);
-                        var lastReadBuffer = this.readBuffers[lastBufferIndex];
+                        // Update the last state
+                        lastBuffer = buffer;
 
                         // Call only if changed.  Take is used to reduce the report size to only the first part of the report needed.
-                        if (false == buffer.Take(takeCount).SequenceEqual(lastReadBuffer.Take(takeCount)))
+                        if (false == buffer.Take(takeCount).SequenceEqual(compareBuffer.Take(takeCount)))
                         {
+
                             // The read buffer changed since the last read
                             CallReadEventAsync(buffer, size, stateCounter);
                         }
@@ -176,5 +207,23 @@ namespace Usb.Hid.Connection
             return result;
         }
 
+        /// <summary>
+        /// Read across all of the read buffers to determine if the button should be set
+        /// </summary>
+        /// <returns>The state of the buttons after debouncing</returns>
+        private UInt32 DebounceButtons()
+        {
+            var buttons = readBuffers.Select(x => BitConverter.ToUInt32(x, ContinuousUsbDebounceButtonsIndex)).ToArray();
+
+            UInt32 returnValue = 0;
+
+            for(var index = 0; index < 32; index++)
+            {
+                var count = buttons.Select(x => (int)((x >> index) & 1)).Sum();
+                if (count >= 8) returnValue += (uint)(1 << index);
+            }
+
+            return returnValue;
+        }
     }
 }

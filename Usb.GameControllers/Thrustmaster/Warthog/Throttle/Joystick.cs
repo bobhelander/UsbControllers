@@ -32,6 +32,11 @@ namespace Usb.GameControllers.Thrustmaster.Warthog.Throttle
             Controller.ContinuousUsb = true;
             // Warthog returns raw vales starting at 16.  Only look for changes before that.
             Controller.ContinuousUsbReportSize = 15;
+
+            // Debounce the buttons
+            Controller.ContinuousUsbDebounce = true;
+            // Button data is bytes 1-4 
+            Controller.ContinuousUsbDebounceButtonsIndex = 1;
         }
 
         /// <summary>

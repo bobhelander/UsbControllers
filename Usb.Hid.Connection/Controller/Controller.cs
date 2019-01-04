@@ -56,6 +56,8 @@ namespace Usb.Hid.Connection
             for (ulong count = 0; count < readBufferCount; count++)
                 this.readBuffers.Add(new byte[this.ReadLength]);
 
+            lastBuffer = new byte[this.ReadLength];
+
             ContinueProcessing = true;
             SerialProcessingTask = Task.Factory.StartNew(() => ReadSerial(),
                 CancellationToken.None, TaskCreationOptions.LongRunning, TaskScheduler.Default)

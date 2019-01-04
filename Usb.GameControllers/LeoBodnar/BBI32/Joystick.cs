@@ -30,6 +30,11 @@ namespace Usb.GameControllers.LeoBodnar.BBI32
             : base(devicePath)
         {
             Controller.ContinuousUsb = true;
+
+            // Debounce the buttons
+            Controller.ContinuousUsbDebounce = true;
+            // Button data is bytes 1-4 
+            Controller.ContinuousUsbDebounceButtonsIndex = 1;
         }
     }
 }
