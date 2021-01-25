@@ -19,7 +19,7 @@ namespace Usb.Hid.Connection
         /// <summary>
         /// The number of buffers available.
         /// </summary>
-        private ulong readBufferCount = 10;
+        private ulong readBufferCount = 9;
 
         /// <summary>
         /// The buffers used when reading the stream.
@@ -215,15 +215,26 @@ namespace Usb.Hid.Connection
         {
             var buttons = readBuffers.Select(x => BitConverter.ToUInt32(x, ContinuousUsbDebounceButtonsIndex)).ToArray();
 
-            UInt32 returnValue = 0;
+            return CompareButtons(
+                CompareButtons(buttons[0], buttons[1], buttons[2]),
+                CompareButtons(buttons[3], buttons[4], buttons[5]),
+                CompareButtons(buttons[6], buttons[7], buttons[8]));
+        }
 
-            for(var index = 0; index < 32; index++)
-            {
-                var count = buttons.Select(x => (int)((x >> index) & 1)).Sum();
-                if (count >= 8) returnValue += (uint)(1 << index);
-            }
+        private UInt32 CompareButtons(UInt32 A, UInt32 B, UInt32 C)
+        {
+            // Truth Table
+            // A  B  C  Result
+            // 0  0  0  0
+            // 0  0  1  0 
+            // 0  1  0  0
+            // 0  1  1  1
+            // 1  0  0  0
+            // 1  0  1  1
+            // 1  1  0  1
+            // 1  1  1  1
 
-            return returnValue;
+            return (A & B) | (A & C) | (B & C);
         }
     }
 }

@@ -39,6 +39,11 @@ namespace Usb.Hid.Connection
         public bool ProcessAllReports { get; set; }
 
         /// <summary>
+        /// True if the controller only sends events on changes.  Initial state may be unknown until user input is detected.
+        /// </summary>
+        public bool EventsOnlyReported { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Controller"/> class.
         /// </summary>
         /// <param name="devicePath">The path of the device.</param>
@@ -59,10 +64,41 @@ namespace Usb.Hid.Connection
             lastBuffer = new byte[this.ReadLength];
 
             ContinueProcessing = true;
+
             SerialProcessingTask = Task.Factory.StartNew(() => ReadSerial(),
                 CancellationToken.None, TaskCreationOptions.LongRunning, TaskScheduler.Default)
                 .ContinueWith(t => { log.Error($"Controller Exception: {t.Exception}"); }, TaskContinuationOptions.OnlyOnFaulted);
-        }       
+        }
+
+        /// <summary>
+        /// Returns an input report.  Note: Most HID devices do not support this method.
+        /// </summary>
+        /// <returns></returns>
+        public byte[] GetInputReport()
+        {
+            return this.stream?.InputReport;
+        }
+
+        /// <summary>
+        /// Attempts to retrieve and place an input report in the stream buffer.  This method would only be used to get the initial values from a device that 
+        /// is returning NAK until a button or axis movement takes place.
+        /// </summary>
+        /// <returns></returns>
+        public async Task ProcessInputReport()
+        {
+            try
+            {
+                var inputReport = GetInputReport();
+                if (inputReport != null && inputReport.Length > 0)
+                {
+                    await this.ProcessSerialMessage(inputReport.Length, inputReport, inputReport.Length, 0).ConfigureAwait(false);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error($"Controller Exception: {ex}");
+            }
+        }
 
         /// <summary>
         /// Releases the associated ressources.

@@ -52,8 +52,13 @@ namespace Usb.Hid.Connection
 
             // Create the file handler from the device path
             // Win10 requires shared access
+            //this.handle = Kernel32Methods.CreateFile(
+            //    devicePath, 
+            //    Win32Api.Win32FileAccess.GenericRead,// | Win32FileAccess.GenericWrite,
+            //    FileShare.ReadWrite, IntPtr.Zero, FileMode.Open, Win32FileAttributes.Overlapped, IntPtr.Zero);
+
             this.handle = Kernel32Methods.CreateFile(
-                devicePath, 
+                devicePath,
                 Win32Api.Win32FileAccess.GenericRead | Win32FileAccess.GenericWrite,
                 FileShare.ReadWrite, IntPtr.Zero, FileMode.Open, Win32FileAttributes.Overlapped, IntPtr.Zero);
 
@@ -85,6 +90,62 @@ namespace Usb.Hid.Connection
             }
         }
 
+        public string PhysicalDescriptor
+        {
+            get
+            {
+                Int32 length = 100;
+                var buffer = new System.Text.StringBuilder(length);
+
+                if (false == HidMethods.GetPhysicalDescriptor(handle, buffer, length))
+                    throw new Exception("Failed GetPhysicalDescriptor", new Win32Exception(Marshal.GetLastWin32Error()));
+
+                return buffer.ToString();
+            }
+        }
+
+        public string ManufacturerString
+        {
+            get
+            {
+                Int32 length = 100;
+                var buffer = new System.Text.StringBuilder(length);
+
+                if (false == HidMethods.GetManufacturerString(handle, buffer, length))
+                    throw new Exception("Failed GetManufacturerString", new Win32Exception(Marshal.GetLastWin32Error()));
+
+                return buffer.ToString();
+            }
+        }
+
+        public string ProductString
+        {
+            get
+            {
+                Int32 length = 100;
+                var buffer = new System.Text.StringBuilder(length);
+
+                if (false == HidMethods.GetProductString(handle, buffer, length))
+                    throw new Exception("Failed GetProductString", new Win32Exception(Marshal.GetLastWin32Error()));
+
+                return buffer.ToString();
+            }
+        }
+
+        public string SerialNumberString
+        {
+            get
+            {
+                Int32 length = 100;
+                var buffer = new System.Text.StringBuilder(length);
+
+                if (false == HidMethods.GetSerialNumberString(handle, buffer, length))
+                    throw new Exception("Failed GetSerialNumberString", new Win32Exception(Marshal.GetLastWin32Error()));
+
+                return buffer.ToString();
+            }
+        }
+
         /// <summary>
         /// Gets the capabilities of the device.
         /// </summary>
@@ -102,6 +163,78 @@ namespace Usb.Hid.Connection
                 }
 
                 return this.capabilities;
+            }
+        }
+
+        public byte[] InputReport
+        {
+            get
+            {
+                if (false == HidMethods.FlushQueue(handle))
+                    throw new Exception("Failed to flush queue", new Win32Exception(Marshal.GetLastWin32Error()));
+
+                using (SafePreparsedDataHandle preparsedData = HidMethods.GetPreparsedData(this.handle))
+                {
+                    int inputReportByteLength = Capabilities.InputReportByteLength;
+                    byte[] data = new byte[inputReportByteLength];
+
+                    // Initialize a report buffer to receive the report
+                    var ret = HidMethods.InitializeReportForID(
+                        (int)HidMethods.HID_REPORT_TYPE.HidP_Input,
+                        1,  // Report 1
+                        preparsedData,
+                        data,
+                        inputReportByteLength);
+
+                    if (ret != HidpStatus.HIDP_STATUS_SUCCESS)
+                        throw new Exception("Failed to initialize read input report", new Win32Exception(Marshal.GetLastWin32Error()));
+
+                    // Get input report 1
+                    if (false == HidMethods.GetInputReport(handle, data, inputReportByteLength))
+                        throw new Exception("Failed to read input report", new Win32Exception(Marshal.GetLastWin32Error()));
+
+                    return data;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Returns the pressed buttons from the input report
+        /// </summary>
+        /// <param name="inputReport">An input report</param>
+        /// <returns></returns>
+        public short[] GetButtonUsages(byte[] inputReport)
+        {
+            if (inputReport.Length != capabilities.InputReportByteLength)
+                throw new ArgumentException("Report length does not match capabilities report length", nameof(inputReport));
+
+            using (SafePreparsedDataHandle preparsedData = HidMethods.GetPreparsedData(this.handle))
+            {
+                var inputButtonCapCount = capabilities.NumberInputButtonCaps;
+
+                HidButtonCaps[] buttonCaps = new HidButtonCaps[inputButtonCapCount];
+
+                var buttonCount = buttonCaps[0].Range.UsageMax - buttonCaps[0].Range.UsageMin + 1;
+
+                short[] usages = new short[buttonCount];
+
+                int reportLength = capabilities.InputReportByteLength;
+                byte[] data = new byte[reportLength];
+
+                var ret = HidMethods.GetUsages(
+                    (int)HidMethods.HID_REPORT_TYPE.HidP_Input,
+                    buttonCaps[0].UsagePage,
+                    0,
+                    usages,
+                    ref buttonCount,
+                    preparsedData,
+                    data,
+                    reportLength);
+
+                if (ret != HidpStatus.HIDP_STATUS_SUCCESS)
+                    throw new Exception("Failed to parse input report", new Win32Exception(Marshal.GetLastWin32Error()));
+
+                return usages;
             }
         }
 
