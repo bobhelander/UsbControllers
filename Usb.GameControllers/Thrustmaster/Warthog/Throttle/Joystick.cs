@@ -37,6 +37,8 @@ namespace Usb.GameControllers.Thrustmaster.Warthog.Throttle
             Controller.ContinuousUsbDebounce = true;
             // Button data is bytes 1-4 
             Controller.ContinuousUsbDebounceButtonsIndex = 1;
+
+            
         }
 
         /// <summary>
@@ -44,7 +46,7 @@ namespace Usb.GameControllers.Thrustmaster.Warthog.Throttle
         /// </summary>
         public byte LightIntensity
         {
-            get { return ((State)States.Current).LightIntensity; }
+            get { return ((State)States?.Current)?.LightIntensity ?? 0; }
             set { UpdateLights(Lights, value).Wait(); }
         }
 
@@ -53,7 +55,7 @@ namespace Usb.GameControllers.Thrustmaster.Warthog.Throttle
         /// </summary>
         public byte Lights
         {
-            get { return ((State)States.Current).Lights; }
+            get { return ((State)States?.Current)?.Lights ?? 0; }
             set { UpdateLights(value, LightIntensity).Wait(); }
         }
 
@@ -62,13 +64,16 @@ namespace Usb.GameControllers.Thrustmaster.Warthog.Throttle
         /// </summary>
         public async Task UpdateLights(byte lights, byte lightIntensity)
         {
+            // Locking up currently
+            return;
+
             byte[] buffer = new byte[Controller.WriteLength];
             buffer[0] = 0x01;
             buffer[1] = 0x06;
             buffer[2] = lights;
             buffer[3] = lightIntensity;
 
-            await Controller.Write(buffer, Controller.WriteLength);
+            await Controller.Write(buffer, Controller.WriteLength).ConfigureAwait(false);
         }
     }
 }

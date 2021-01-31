@@ -29,6 +29,7 @@ namespace Usb.GameControllers.Microsoft.Sidewinder.StrategicCommander
         public Joystick(string devicePath) 
             : base(devicePath)
         {
+            Controller.EventsOnlyReported = true;
         }
 
         /// <summary>

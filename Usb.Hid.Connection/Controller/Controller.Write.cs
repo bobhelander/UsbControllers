@@ -21,7 +21,7 @@ namespace Usb.Hid.Connection
         public async Task Write(byte[] buffer, int length)
         {
             if (stream.CanWrite)
-                await stream.WriteAsync(buffer, 0, length);
+                await stream.WriteAsync(buffer, 0, length).ConfigureAwait(false);
         }
     }
 }

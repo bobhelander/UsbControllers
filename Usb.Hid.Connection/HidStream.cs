@@ -186,6 +186,9 @@ namespace Usb.Hid.Connection
                         data,
                         inputReportByteLength);
 
+                    if (ret == HidpStatus.HIDP_STATUS_REPORT_DOES_NOT_EXIST)
+                        throw new Exception("Failed to initialize read input report: Report does not exist");
+
                     if (ret != HidpStatus.HIDP_STATUS_SUCCESS)
                         throw new Exception("Failed to initialize read input report", new Win32Exception(Marshal.GetLastWin32Error()));
 
