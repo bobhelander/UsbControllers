@@ -64,9 +64,6 @@ namespace Usb.GameControllers.Thrustmaster.Warthog.Throttle
         /// </summary>
         public async Task UpdateLights(byte lights, byte lightIntensity)
         {
-            // Locking up currently
-            return;
-
             byte[] buffer = new byte[Controller.WriteLength];
             buffer[0] = 0x01;
             buffer[1] = 0x06;

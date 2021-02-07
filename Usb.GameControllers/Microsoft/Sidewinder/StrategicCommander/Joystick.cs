@@ -26,10 +26,18 @@ namespace Usb.GameControllers.Microsoft.Sidewinder.StrategicCommander
         /// <param name="devicePath">
         /// The path of the device.
         /// </param>
-        public Joystick(string devicePath) 
+        public Joystick(string devicePath)
             : base(devicePath)
         {
             Controller.EventsOnlyReported = true;
+        }
+
+        /// <summary>
+        /// Get an input report from the device and place it into the input stream to process.  This is only done on initialization.
+        /// </summary>
+        public async Task ReadInputReportAsync()
+        {
+            await Controller.ProcessInputReport().ConfigureAwait(false);
         }
 
         /// <summary>
