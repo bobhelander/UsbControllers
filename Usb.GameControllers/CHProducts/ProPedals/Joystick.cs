@@ -21,6 +21,11 @@ namespace Usb.GameControllers.CHProducts.ProPedals
         public const int ProductId = 0xc501;
 
         /// <summary>
+        /// The product id if the CH driver is not installed
+        /// </summary>
+        public const int AltProductId = 0x0501;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Joystick"/> class.
         /// </summary>
         /// <param name="devicePath">
