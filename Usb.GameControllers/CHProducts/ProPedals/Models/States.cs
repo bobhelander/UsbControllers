@@ -23,4 +23,21 @@ namespace Usb.GameControllers.CHProducts.ProPedals.Models
             Previous = State.Empty;
         }
     }
+
+    public class AltStates : IStates
+    {
+        public IState Current { get; set; }
+        public IState Previous { get; set; }
+
+        public IState CreateFromBuffer(byte[] buffer)
+        {
+            return State.CreateAlt(buffer);
+        }
+
+        public void Initialize()
+        {
+            Current = State.Empty;
+            Previous = State.Empty;
+        }
+    }
 }

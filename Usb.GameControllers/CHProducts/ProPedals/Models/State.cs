@@ -48,5 +48,15 @@ namespace Usb.GameControllers.CHProducts.ProPedals.Models
                 R = (int)values[3],
             };
         }
+
+        internal static State CreateAlt(byte[] values)
+        {
+            return new State()
+            {
+                X = (int)values[4],
+                Y = (int)values[5],
+                R = (int)values[7],
+            };
+        }
     }
 }

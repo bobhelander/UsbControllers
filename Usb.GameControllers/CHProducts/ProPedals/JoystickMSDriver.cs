@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Usb.GameControllers.CHProducts.ProPedals
 {
-    public partial class Joystick : JoystickBase<States>
+    public partial class JoystickMSDriver : JoystickBase<AltStates>
     {
         /// <summary>
         /// The vendor id for the CH Pedals device.
@@ -18,15 +18,15 @@ namespace Usb.GameControllers.CHProducts.ProPedals
         /// <summary>
         /// The product id for the CH Pedals device.
         /// </summary>
-        public const int ProductId = 0xc501;
+        public const int ProductId = 0x0501;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Joystick"/> class.
+        /// Initializes a new instance of the <see cref="JoystickMSDriver"/> class.
         /// </summary>
         /// <param name="devicePath">
         /// The path of the device.
         /// </param>
-        public Joystick(string devicePath) 
+        public JoystickMSDriver(string devicePath) 
             : base(devicePath)
         {
         }
