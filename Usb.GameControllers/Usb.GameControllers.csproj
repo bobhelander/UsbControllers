@@ -15,8 +15,9 @@ CH Products Pro Pedals
 Leo Bodnar BBI32   http://www.leobodnar.com/</Description>
     <PackageLicenseUrl>https://github.com/bobhelander/UsbControllers/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/bobhelander/UsbControllers</PackageProjectUrl>
-    <Version>1.0.13</Version>
-    <PackageReleaseNotes>1.0.13 Updated buffer for the CH Pro Pedals when using the MS driver
+    <Version>1.0.14</Version>
+    <PackageReleaseNotes>1.0.14 Updated Usb.Hid.Connection.  Attempting to determine what is going on with the CH Pro Pedals drivers.
+1.0.13 Updated buffer for the CH Pro Pedals when using the MS driver
 1.0.12 Added alternate product Id for the CH Pro Pedals 
 1.0.11 Added ReadInputReportAsync to Microsoft Strategic Commander
 1.0.9 Buttons are flipping under high load.  Additional debounce logic added to Usb.Hid.Connection</PackageReleaseNotes>
