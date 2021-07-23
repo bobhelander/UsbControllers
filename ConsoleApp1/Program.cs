@@ -19,7 +19,6 @@ namespace ConsoleApp1
             {
                 // A lot of commented out calls to different part of the code to determine that the libraries are doing what I want them to do.
 
-
                 //var paths = Devices.RetrieveAllDevicePath(
                 //    Usb.GameControllers.LeoBodnar.BBI32.Joystick.VendorId,
                 //    Usb.GameControllers.LeoBodnar.BBI32.Joystick.ProductId);
