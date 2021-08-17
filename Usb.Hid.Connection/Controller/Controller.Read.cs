@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Usb.Hid.Connection.models;
+using Microsoft.Extensions.Logging;
 
 namespace Usb.Hid.Connection
 {
@@ -19,12 +20,12 @@ namespace Usb.Hid.Connection
         /// <summary>
         /// The number of buffers available.
         /// </summary>
-        private ulong readBufferCount = 9;
+        private readonly ulong readBufferCount = 9;
 
         /// <summary>
         /// The buffers used when reading the stream.
         /// </summary>
-        private List<byte[]> readBuffers = new List<byte[]>();
+        private readonly List<byte[]> readBuffers = new List<byte[]>();
 
         /// <summary>
         /// Serial reading task
@@ -58,7 +59,7 @@ namespace Usb.Hid.Connection
         public int ContinuousUsbDebounceButtonsIndex { get; set; } = 0;
 
         /// <summary>
-        /// Holder the the last debounced read
+        /// Holder for the last debounced read
         /// </summary>
         private byte[] lastBuffer;
 
@@ -74,12 +75,12 @@ namespace Usb.Hid.Connection
                 // Round robin the available buffers
                 var bufferIndex = (int)(counter % readBufferCount);
 
-                var size = await this.stream.ReadAsync(readBuffers[bufferIndex], 0, ReadLength);
+                var size = await this.stream.ReadAsync(readBuffers[bufferIndex], 0, ReadLength).ConfigureAwait(false);
 
                 if (ContinuousUsb)
-                    await ProcessSerialMessageRemoveJitter(size, readBuffers[bufferIndex], ReadLength, counter);
+                    await ProcessSerialMessageRemoveJitter(size, readBuffers[bufferIndex], ReadLength, counter).ConfigureAwait(false);
                 else
-                    await ProcessSerialMessage(size, readBuffers[bufferIndex], ReadLength, counter);
+                    await ProcessSerialMessage(size, readBuffers[bufferIndex], ReadLength, counter).ConfigureAwait(false);
 
                 counter++;
             }
@@ -108,15 +109,15 @@ namespace Usb.Hid.Connection
                     // Process the change
                     CallReadEventAsync(buffer, size, stateCounter);
 
-                    return await Task.FromResult(true);
+                    return await Task.FromResult(true).ConfigureAwait(false);
                 }
             }
             catch (Exception ex)
             {
-                log.Error(ex);
+                logger.LogError(ex.Message);
             }
 
-            return await Task.FromResult(false);
+            return await Task.FromResult(false).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -139,8 +140,6 @@ namespace Usb.Hid.Connection
             {
                 if (0 < observers.Count)
                 {
-                    
-
                     if (stateCounter > 0)
                     {
                         var compareBuffer = CopyBuffer(lastBuffer, size);
@@ -156,7 +155,7 @@ namespace Usb.Hid.Connection
                         }
 
                         // If the value has been set, use it. 
-                        var takeCount = (0 == ContinuousUsbReportSize) ? size : ContinuousUsbReportSize;
+                        var takeCount = (ContinuousUsbReportSize == 0) ? size : ContinuousUsbReportSize;
 
                         // Update the last state
                         lastBuffer = buffer;
@@ -164,21 +163,20 @@ namespace Usb.Hid.Connection
                         // Call only if changed.  Take is used to reduce the report size to only the first part of the report needed.
                         if (false == buffer.Take(takeCount).SequenceEqual(compareBuffer.Take(takeCount)))
                         {
-
                             // The read buffer changed since the last read
                             CallReadEventAsync(buffer, size, stateCounter);
                         }
                     }
 
-                    return await Task.FromResult(true);
+                    return await Task.FromResult(true).ConfigureAwait(false);
                 }
             }
             catch (Exception ex)
             {
-                log.Error(ex);
+                logger?.LogError(ex.Message);
             }
 
-            return await Task.FromResult(false);
+            return await Task.FromResult(false).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -191,7 +189,7 @@ namespace Usb.Hid.Connection
         {
             // Allow this to process in the thread pool
             Task.Run(() => Notify(new ReadBuffer { StateCounter = stateCounter, Buffer = CopyBuffer(buffer, size) }))
-                .ContinueWith(t => { log.Error($"Read EventHandler Exception: {t.Exception}"); }, TaskContinuationOptions.OnlyOnFaulted);
+                .ContinueWith(t => logger?.LogError($"Read EventHandler Exception: {t.Exception}"), TaskContinuationOptions.OnlyOnFaulted);
         }
 
         /// <summary>

@@ -7,13 +7,13 @@ using Usb.Hid.Connection;
 
 namespace ConsoleApp1
 {
-    class Program
+    internal static class Program
     {
         /// <summary>
         /// Just testing things...
         /// </summary>
         /// <param name="args"></param>
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             try
             {
@@ -66,20 +66,24 @@ namespace ConsoleApp1
                 //usb.ContinuousUsbReportSize = 15;
                 //usb.ContinuousUsbDebounce = true;
                 //usb.ContinuousUsbDebounceButtonsIndex = 1;
-                if (false)
+                if (true)
                 {
-                    var usb = new Usb.Hid.Connection.Controller(paths.First());
+                    var bbi32Paths = Devices.RetrieveAllDevicePath(
+                        Usb.GameControllers.LeoBodnar.BBI32.Joystick.VendorId,
+                        Usb.GameControllers.LeoBodnar.BBI32.Joystick.ProductId);
+
+                    var usb = new Usb.Hid.Connection.Controller(bbi32Paths.First(), null);
                     usb.Subscribe(x => Console.WriteLine($"bbi32: {DateTime.Now}"));
                     usb.Initialize();
                     usb.ProcessInputReport().Wait();
                 }
                 if (false)
                 {
-                    var controller = new Usb.GameControllers.Thrustmaster.Warthog.Throttle.Joystick(paths.First());
+                    var controller = new Usb.GameControllers.Thrustmaster.Warthog.Throttle.Joystick(paths.First(), null);
 
                     controller.Initialize();
 
-                    //var test = usb.GetInputReport();
+                    //var test = controller.Controller.GetInputReport();
 
                     controller.Lights = (byte)Usb.GameControllers.Thrustmaster.Warthog.Throttle.Models.Light.LED1;
                     System.Threading.Thread.Sleep(500);
@@ -91,16 +95,16 @@ namespace ConsoleApp1
                     System.Threading.Thread.Sleep(500);
                     //usb.ProcessSerialMessage(test.Length, test, test.Length, 0).Wait();
                 }
-                if (true)
+                if (false)
                 {
-                    var controller = new Usb.GameControllers.CHProducts.ProPedals.Joystick(paths.First());
+                    var controller = new Usb.GameControllers.CHProducts.ProPedals.Joystick(paths.First(), null);
 
                     controller.Initialize();
                 }
             }
             catch(Exception ex)
             {
-                 ;
+                 Console.WriteLine(ex.Message);
             }
 
             while (true) ;

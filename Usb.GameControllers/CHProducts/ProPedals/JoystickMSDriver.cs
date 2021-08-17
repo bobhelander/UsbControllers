@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace Usb.GameControllers.CHProducts.ProPedals
 {
@@ -26,8 +27,11 @@ namespace Usb.GameControllers.CHProducts.ProPedals
         /// <param name="devicePath">
         /// The path of the device.
         /// </param>
-        public JoystickMSDriver(string devicePath) 
-            : base(devicePath)
+        /// <param name="logger">
+        /// Microsoft.Extensions.Logging logger. Null to disable logging.
+        /// </param>
+        public JoystickMSDriver(string devicePath, ILogger logger)
+            : base(devicePath, logger)
         {
         }
     }

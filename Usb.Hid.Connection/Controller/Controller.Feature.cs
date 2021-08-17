@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Usb.Hid.Connection
 {
     public partial class Controller
-    { 
+    {
         /// <summary>
         /// The buffer used when getting the feature report.
         /// </summary>
@@ -17,7 +17,7 @@ namespace Usb.Hid.Connection
         /// Gets the prefered length for the feature buffer.
         /// </summary>
         public int FeatureLength => this.stream.Capabilities.FeatureReportByteLength;
-        
+
         /// <summary>
         /// Gets or sets the feature report of the controller.
         /// </summary>

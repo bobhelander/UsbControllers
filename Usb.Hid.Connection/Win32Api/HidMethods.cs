@@ -47,8 +47,7 @@ namespace Usb.Hid.Connection.Win32Api
         /// </exception>
         public static SafePreparsedDataHandle GetPreparsedData(SafeFileHandle device)
         {
-            SafePreparsedDataHandle result;
-            if (!GetPreparsedData(device, out result))
+            if (false == GetPreparsedData(device, out SafePreparsedDataHandle result))
             {
                 throw new Win32Exception(Marshal.GetHRForLastWin32Error());
             }
@@ -104,8 +103,7 @@ namespace Usb.Hid.Connection.Win32Api
         /// </exception>
         public static HidCaps GetCaps(SafePreparsedDataHandle preparsedData)
         {
-            HidCaps result;
-            HidpStatus status = GetCaps(preparsedData, out result);
+            HidpStatus status = GetCaps(preparsedData, out HidCaps result);
             if (status != HidpStatus.HIDP_STATUS_SUCCESS)
             {
                 throw new Win32Exception("The specified preparsed data is invalid");

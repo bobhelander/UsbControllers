@@ -94,7 +94,7 @@ namespace Usb.Hid.Connection
         {
             get
             {
-                Int32 length = 100;
+                const Int32 length = 100;
                 var buffer = new System.Text.StringBuilder(length);
 
                 if (false == HidMethods.GetPhysicalDescriptor(handle, buffer, length))
@@ -108,7 +108,7 @@ namespace Usb.Hid.Connection
         {
             get
             {
-                Int32 length = 100;
+                const Int32 length = 100;
                 var buffer = new System.Text.StringBuilder(length);
 
                 if (false == HidMethods.GetManufacturerString(handle, buffer, length))
@@ -122,7 +122,7 @@ namespace Usb.Hid.Connection
         {
             get
             {
-                Int32 length = 100;
+                const Int32 length = 100;
                 var buffer = new System.Text.StringBuilder(length);
 
                 if (false == HidMethods.GetProductString(handle, buffer, length))
@@ -136,7 +136,7 @@ namespace Usb.Hid.Connection
         {
             get
             {
-                Int32 length = 100;
+                const Int32 length = 100;
                 var buffer = new System.Text.StringBuilder(length);
 
                 if (false == HidMethods.GetSerialNumberString(handle, buffer, length))
@@ -289,14 +289,9 @@ namespace Usb.Hid.Connection
         {
             get
             {
-                if (this.stream == null)
-                {
-                    this.stream = new FileStream(this.handle, 
-                        System.IO.FileAccess.Read | System.IO.FileAccess.Write, 
-                        this.Capabilities.InputReportByteLength, true);
-                }
-
-                return this.stream;
+                return this.stream ?? (this.stream = new FileStream(this.handle,
+                        System.IO.FileAccess.Read | System.IO.FileAccess.Write,
+                        this.Capabilities.InputReportByteLength, true));
             }
         }
 
@@ -321,7 +316,7 @@ namespace Usb.Hid.Connection
         /// The maximum number of bytes to be read from the current stream.
         /// </param>
         /// <returns>
-        /// The total number of bytes read into the buffer. 
+        /// The total number of bytes read into the buffer.
         /// </returns>
         public override int Read(byte[] buffer, int offset, int count)
         {
@@ -442,10 +437,7 @@ namespace Usb.Hid.Connection
             if (disposing)
             {
                 // Dispose managed resources
-                if (this.stream != null)
-                {
-                    this.stream.Dispose();
-                }
+                this.stream?.Dispose();
             }
 
             // Dispose unmanaged resources

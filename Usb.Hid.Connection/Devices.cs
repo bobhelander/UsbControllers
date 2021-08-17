@@ -23,7 +23,7 @@ namespace Usb.Hid.Connection
             string search = string.Format("vid_{0:x4}&pid_{1:x4}", vendorId, productId);
 
             return Device.GetInterfaceDevices(HidStream.HidGuid)
-                .Where(d => d.DevicePath != null && d.DevicePath.Contains(search))
+                .Where(d => d.DevicePath?.Contains(search) == true)
                 .Select(d => d.DevicePath);
         }
     }

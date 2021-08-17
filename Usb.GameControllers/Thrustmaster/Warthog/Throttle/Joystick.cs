@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Usb.GameControllers.Thrustmaster.Warthog.Throttle.Models;
+using Microsoft.Extensions.Logging;
 
 namespace Usb.GameControllers.Thrustmaster.Warthog.Throttle
 {
@@ -26,8 +27,8 @@ namespace Usb.GameControllers.Thrustmaster.Warthog.Throttle
         /// <param name="devicePath">
         /// The path of the device.
         /// </param>
-        public Joystick(string devicePath) 
-            : base(devicePath)
+        public Joystick(string devicePath, ILogger logger)
+            : base(devicePath, logger)
         {
             Controller.ContinuousUsb = true;
             // Warthog returns raw vales starting at 16.  Only look for changes before that.
@@ -37,8 +38,6 @@ namespace Usb.GameControllers.Thrustmaster.Warthog.Throttle
             Controller.ContinuousUsbDebounce = true;
             // Button data is bytes 1-4 
             Controller.ContinuousUsbDebounceButtonsIndex = 1;
-
-            
         }
 
         /// <summary>
@@ -64,13 +63,16 @@ namespace Usb.GameControllers.Thrustmaster.Warthog.Throttle
         /// </summary>
         public async Task UpdateLights(byte lights, byte lightIntensity)
         {
-            byte[] buffer = new byte[Controller.WriteLength];
-            buffer[0] = 0x01;
-            buffer[1] = 0x06;
-            buffer[2] = lights;
-            buffer[3] = lightIntensity;
+            if (Controller.WriteLength > 0)
+            {
+                byte[] buffer = new byte[Controller.WriteLength];
+                buffer[0] = 0x01;
+                buffer[1] = 0x06;
+                buffer[2] = lights;
+                buffer[3] = lightIntensity;
 
-            await Controller.Write(buffer, Controller.WriteLength).ConfigureAwait(false);
+                await Controller.Write(buffer, Controller.WriteLength).ConfigureAwait(false);
+            }
         }
     }
 }

@@ -11,12 +11,7 @@ namespace ForceFeedback.Controller
     {
         private Device Device { get; set; }
 
-        private Dictionary<string, EffectObject> effectList = new Dictionary<string, EffectObject>();
-
-        public ForceFeedback()
-        {
-            ;
-        }
+        private readonly Dictionary<string, EffectObject> effectList = new Dictionary<string, EffectObject>();
 
         public bool InitializeInput(string productId)
         {
@@ -36,7 +31,6 @@ namespace ForceFeedback.Controller
             if (Device == null) // We couldn't find a joystick
                 return false;
 
-
             Device.SetDataFormat(DeviceDataFormat.Joystick);
             //Device.SetCooperativeLevel(this, CooperativeLevelFlags.Exclusive | CooperativeLevelFlags.Background);
             Device.Properties.AxisModeAbsolute = true;
@@ -46,11 +40,10 @@ namespace ForceFeedback.Controller
             return true;
         }
 
-        public List<string> LoadEffects(string fileName)
+        public List<string> LoadEffects(string fileName = @".\effects\FEdit2.ffe")
         {
             // Load our feedback file
-            EffectList effects = null;
-            effects = Device.GetEffects(@".\effects\FEdit2.ffe", FileEffectsFlags.ModifyIfNeeded);
+            EffectList effects = Device.GetEffects(fileName, FileEffectsFlags.ModifyIfNeeded);
 
             foreach (FileEffect fe in effects)
             {
@@ -63,7 +56,7 @@ namespace ForceFeedback.Controller
         }
 
         public void PlayEffect(string name)
-        {            
+        {
             var effect = effectList[name];
             PlayEffect(effect);
         }
@@ -85,8 +78,11 @@ namespace ForceFeedback.Controller
         {
             // https://github.com/tloimu/adapt-ffb-joy/blob/master/FeedbackTester/frmMain.cs
 
-            Effect param = new Effect();
-            param.Flags = EffectFlags.Cartesian | EffectFlags.ObjectOffsets;
+            Effect param = new Effect
+            {
+                Flags = EffectFlags.Cartesian | EffectFlags.ObjectOffsets
+            };
+
             effect.GetParameters(ref param, EffectParameterFlags.AllParams);
 
             param.SetDirection(direction);
@@ -112,5 +108,4 @@ namespace ForceFeedback.Controller
             }
         }
     }
-
 }

@@ -11,8 +11,8 @@ namespace Usb.Hid.Connection
     {
         private class Unsubscriber : IDisposable
         {
-            private List<IObserver<ReadBuffer>> _observers;
-            private IObserver<ReadBuffer> _observer;
+            private readonly List<IObserver<ReadBuffer>> _observers;
+            private readonly IObserver<ReadBuffer> _observer;
 
             public Unsubscriber(List<IObserver<ReadBuffer>> observers, IObserver<ReadBuffer> observer)
             {

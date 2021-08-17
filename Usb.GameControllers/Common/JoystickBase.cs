@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace Usb.GameControllers.Common
 {
@@ -15,9 +16,9 @@ namespace Usb.GameControllers.Common
         protected T States { get; set; } = new T();
 
         /// <summary>
-        /// UBS Connection to the device
+        /// USB Connection to the device
         /// </summary>
-        protected Usb.Hid.Connection.Controller Controller { get; set; }
+        public Usb.Hid.Connection.Controller Controller { get; protected set; }
 
         /// <summary>
         /// Disconnect from the device
@@ -30,9 +31,12 @@ namespace Usb.GameControllers.Common
         /// <param name="devicePath">
         /// The path of the device.
         /// </param>
-        public JoystickBase(string devicePath)
+        /// <param name="logger">
+        ///Microsoft.Extensions.Logging logger. Null to disable logging.
+        /// </param>
+        public JoystickBase(string devicePath, ILogger logger)
         {
-            Controller = new Usb.Hid.Connection.Controller(devicePath);
+            Controller = new Usb.Hid.Connection.Controller(devicePath, logger);
             ControllerUnsubscriber = Controller.Subscribe(this);
         }
 

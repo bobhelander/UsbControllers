@@ -9,7 +9,7 @@ namespace Usb.GameControllers.Common
 {
     public partial class JoystickBase<T> : IObservable<T> where T : IStates, new()
     {
-        private List<IObserver<T>> observers = new List<IObserver<T>>();
+        private readonly List<IObserver<T>> observers = new List<IObserver<T>>();
 
         public IDisposable Subscribe(IObserver<T> observer)
         {

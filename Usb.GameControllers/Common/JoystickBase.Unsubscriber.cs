@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Usb.GameControllers.Common
 {
-    public partial class JoystickBase<T> 
+    public partial class JoystickBase<T>
     {
         private class Unsubscriber : IDisposable
         {
-            private List<IObserver<T>> _observers;
-            private IObserver<T> _observer;
+            private readonly List<IObserver<T>> _observers;
+            private readonly IObserver<T> _observer;
 
             public Unsubscriber(List<IObserver<T>> observers, IObserver<T> observer)
             {

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace Usb.GameControllers.Microsoft.Sidewinder.ForceFeedback2
 {
@@ -32,8 +33,11 @@ namespace Usb.GameControllers.Microsoft.Sidewinder.ForceFeedback2
         /// <param name="devicePath">
         /// The path of the device.
         /// </param>
-        public Joystick(string devicePath) 
-            : base(devicePath)
+        /// <param name="logger">
+        /// Microsoft.Extensions.Logging logger. Null to disable logging.
+        /// </param>
+        public Joystick(string devicePath, ILogger logger)
+            : base(devicePath, logger)
         {
         }
     }

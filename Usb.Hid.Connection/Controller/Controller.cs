@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,9 +11,9 @@ namespace Usb.Hid.Connection
 {
     public partial class Controller : IObservable<ReadBuffer>
     {
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly List<IObserver<ReadBuffer>> observers = new List<IObserver<ReadBuffer>>();
 
-        private List<IObserver<ReadBuffer>> observers = new List<IObserver<ReadBuffer>>();        
+        private readonly ILogger logger;
 
         public IDisposable Subscribe(IObserver<ReadBuffer> observer)
         {
@@ -47,8 +48,11 @@ namespace Usb.Hid.Connection
         /// Initializes a new instance of the <see cref="Controller"/> class.
         /// </summary>
         /// <param name="devicePath">The path of the device.</param>
-        public Controller(string devicePath)
+        /// <param name="logger">Microsoft.Extensions.Logging implementation.  Use null to disable any loggin.</param>
+        /// Microsoft.Extensions.Logging
+        public Controller(string devicePath, ILogger logger)
         {
+            this.logger = logger;
             stream = new HidStream(devicePath);
             featureBuffer = new byte[this.FeatureLength];
         }
@@ -67,7 +71,7 @@ namespace Usb.Hid.Connection
 
             SerialProcessingTask = Task.Factory.StartNew(() => ReadSerial(),
                 CancellationToken.None, TaskCreationOptions.LongRunning, TaskScheduler.Default)
-                .ContinueWith(t => { log.Error($"Controller Exception: {t.Exception}"); }, TaskContinuationOptions.OnlyOnFaulted);
+                .ContinueWith(t => logger?.LogError($"Controller Exception: {t.Exception}"), TaskContinuationOptions.OnlyOnFaulted);
         }
 
         /// <summary>
@@ -80,7 +84,7 @@ namespace Usb.Hid.Connection
         }
 
         /// <summary>
-        /// Attempts to retrieve and place an input report in the stream buffer.  This method would only be used to get the initial values from a device that 
+        /// Attempts to retrieve and place an input report in the stream buffer.  This method would only be used to get the initial values from a device that
         /// is returning NAK until a button or axis movement takes place.
         /// </summary>
         /// <returns></returns>
@@ -89,14 +93,14 @@ namespace Usb.Hid.Connection
             try
             {
                 var inputReport = GetInputReport();
-                if (inputReport != null && inputReport.Length > 0)
+                if (inputReport?.Length > 0)
                 {
                     await this.ProcessSerialMessage(inputReport.Length, inputReport, inputReport.Length, 0).ConfigureAwait(false);
                 }
             }
             catch (Exception ex)
             {
-                log.Error($"Controller Exception: {ex}");
+                logger?.LogError($"Controller Exception: {ex}");
             }
         }
 

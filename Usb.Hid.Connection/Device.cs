@@ -14,12 +14,12 @@ namespace Usb.Hid.Connection
         /// <summary>
         /// A pointer to the associated set of devices.
         /// </summary>
-        private SafeDeviceSetHandle deviceSet;
+        private readonly SafeDeviceSetHandle deviceSet;
 
         /// <summary>
         /// The details about the device.
         /// </summary>
-        private DeviceInterfaceData interfaceData;
+        private readonly DeviceInterfaceData interfaceData;
 
         /// <summary>
         /// The path of the device.
@@ -142,7 +142,7 @@ namespace Usb.Hid.Connection
             /// <summary>
             /// The pointer to the set of devices.
             /// </summary>
-            private SafeDeviceSetHandle deviceSet;
+            private readonly SafeDeviceSetHandle deviceSet;
 
             /// <summary>
             /// The index of the current device in the device set.
@@ -152,7 +152,7 @@ namespace Usb.Hid.Connection
             /// <summary>
             /// The current device data.
             /// </summary>
-            private DeviceInterfaceData interfaceData;
+            private readonly DeviceInterfaceData interfaceData;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="DeviceEnumerator"/> class.

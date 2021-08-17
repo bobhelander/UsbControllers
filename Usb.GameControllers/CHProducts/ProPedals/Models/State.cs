@@ -14,7 +14,7 @@ namespace Usb.GameControllers.CHProducts.ProPedals.Models
         /// <summary>
         /// An empty status.
         /// </summary>
-        public static readonly State Empty = new State() { };
+        public static readonly State Empty = new State();
 
         /// <summary>
         /// Gets or sets the x-axis position of the controller.
