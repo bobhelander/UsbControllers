@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,13 +28,13 @@ namespace ConsoleApp1
                 //   Usb.GameControllers.Microsoft.Sidewinder.StrategicCommander.Joystick.VendorId,
                 //    Usb.GameControllers.Microsoft.Sidewinder.StrategicCommander.Joystick.ProductId);
 
-                //var paths = Devices.RetrieveAllDevicePath(
-                //    Usb.GameControllers.Thrustmaster.Warthog.Throttle.Joystick.VendorId,
-                //    Usb.GameControllers.Thrustmaster.Warthog.Throttle.Joystick.ProductId);
-
                 var paths = Devices.RetrieveAllDevicePath(
-                    Usb.GameControllers.CHProducts.ProPedals.Joystick.VendorId,
-                    Usb.GameControllers.CHProducts.ProPedals.Joystick.ProductId);
+                    Usb.GameControllers.Thrustmaster.Warthog.Throttle.Joystick.VendorId,
+                    Usb.GameControllers.Thrustmaster.Warthog.Throttle.Joystick.ProductId);
+
+                //var paths = Devices.RetrieveAllDevicePath(
+                //    Usb.GameControllers.CHProducts.ProPedals.Joystick.VendorId,
+                //    Usb.GameControllers.CHProducts.ProPedals.Joystick.ProductId);
 
                 //var paths = Devices.RetrieveAllDevicePath(
                 //   Usb.GameControllers.Pioneer.DDJSB2.Joystick.VendorId,
@@ -66,7 +67,7 @@ namespace ConsoleApp1
                 //usb.ContinuousUsbReportSize = 15;
                 //usb.ContinuousUsbDebounce = true;
                 //usb.ContinuousUsbDebounceButtonsIndex = 1;
-                if (true)
+                if (false)
                 {
                     var bbi32Paths = Devices.RetrieveAllDevicePath(
                         Usb.GameControllers.LeoBodnar.BBI32.Joystick.VendorId,
@@ -79,21 +80,67 @@ namespace ConsoleApp1
                 }
                 if (false)
                 {
-                    var controller = new Usb.GameControllers.Thrustmaster.Warthog.Throttle.Joystick(paths.First(), null);
+                    using (ILoggerFactory loggerFactory =
+                    LoggerFactory.Create(builder => builder.AddSimpleConsole(options =>
+                    { options.SingleLine = true; options.TimestampFormat = "hh:mm:ss "; }).SetMinimumLevel(LogLevel.Debug)))
+                    {
+                        ILogger<Usb.GameControllers.Thrustmaster.Warthog.Throttle.Joystick> logger 
+                            = loggerFactory.CreateLogger<Usb.GameControllers.Thrustmaster.Warthog.Throttle.Joystick>();
 
-                    controller.Initialize();
+                        var warthog = Devices.RetrieveAllDevicePath(
+                            Usb.GameControllers.Thrustmaster.Warthog.Throttle.Joystick.VendorId,
+                            Usb.GameControllers.Thrustmaster.Warthog.Throttle.Joystick.ProductId);
 
-                    //var test = controller.Controller.GetInputReport();
+                        var usb = new Usb.Hid.Connection.Controller(warthog.First(), logger)
+                        {
+                            ContinuousUsb = true,
+                            // Warthog returns raw vales starting at 16.  Only look for changes before that.
+                            ContinuousUsbReportSize = 15,
 
-                    controller.Lights = (byte)Usb.GameControllers.Thrustmaster.Warthog.Throttle.Models.Light.LED1;
-                    System.Threading.Thread.Sleep(500);
+                            // Debounce the buttons
+                            ContinuousUsbDebounce = true,
+                            // Button data is bytes 1-4 
+                            ContinuousUsbDebounceButtonsIndex = 1,
+                        };
 
-                    controller.Lights = (byte)Usb.GameControllers.Thrustmaster.Warthog.Throttle.Models.Light.LED2;
-                    System.Threading.Thread.Sleep(500);
+                        usb.Subscribe(x => Console.WriteLine($"warthog: {DateTime.Now}"));
+                        usb.Initialize();
+                        //usb.ProcessInputReport().Wait();
 
-                    controller.Lights = (byte)Usb.GameControllers.Thrustmaster.Warthog.Throttle.Models.Light.LED3;
-                    System.Threading.Thread.Sleep(500);
-                    //usb.ProcessSerialMessage(test.Length, test, test.Length, 0).Wait();
+                        Console.ReadKey();
+
+                        usb.Stop();
+                    }
+                }
+                if (true)
+                {
+                    using (ILoggerFactory loggerFactory =
+                        LoggerFactory.Create(builder => builder.AddSimpleConsole(options =>
+                        { options.SingleLine = true; options.TimestampFormat = "hh:mm:ss "; }).SetMinimumLevel(LogLevel.Debug)))
+                    {
+                        ILogger<Usb.GameControllers.Thrustmaster.Warthog.Throttle.Joystick> logger
+                            = loggerFactory.CreateLogger<Usb.GameControllers.Thrustmaster.Warthog.Throttle.Joystick>();
+
+                        var controller = new Usb.GameControllers.Thrustmaster.Warthog.Throttle.Joystick(paths.First(), logger);
+
+                        controller.Subscribe(x => Console.WriteLine($"warthog: {DateTime.Now}"));
+
+                        controller.Initialize();
+
+                        //var test = controller.Controller.GetInputReport();
+
+                        controller.Lights = (byte)Usb.GameControllers.Thrustmaster.Warthog.Throttle.Models.Light.LED1;
+                        System.Threading.Thread.Sleep(500);
+
+                        controller.Lights = (byte)Usb.GameControllers.Thrustmaster.Warthog.Throttle.Models.Light.LED2;
+                        System.Threading.Thread.Sleep(500);
+
+                        controller.Lights = (byte)Usb.GameControllers.Thrustmaster.Warthog.Throttle.Models.Light.LED3;
+                        System.Threading.Thread.Sleep(500);
+                        //usb.ProcessSerialMessage(test.Length, test, test.Length, 0).Wait();
+
+                        Console.ReadKey();
+                    }
                 }
                 if (false)
                 {

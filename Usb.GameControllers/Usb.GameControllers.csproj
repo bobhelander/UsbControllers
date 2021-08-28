@@ -15,8 +15,9 @@ CH Products Pro Pedals
 Leo Bodnar BBI32   http://www.leobodnar.com/</Description>
     <PackageLicenseUrl>https://github.com/bobhelander/UsbControllers/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/bobhelander/UsbControllers</PackageProjectUrl>
-    <Version>2.0.1</Version>
-    <PackageReleaseNotes>2.0.1 Fixed dependencies.
+    <Version>2.0.2</Version>
+    <PackageReleaseNotes>2.0.2 Fix in Usb.Hid.Connection to read correctly.
+2.0.1 Fixed dependencies.
 2.0.0 Removed Log4Net. Replaced logging with ILogger. Breaking: Updated constructors to pass logger.
 1.0.14 Updated Usb.Hid.Connection.  Attempting to determine what is going on with the CH Pro Pedals drivers.
 1.0.13 Updated buffer for the CH Pro Pedals when using the MS driver
@@ -27,7 +28,7 @@ Leo Bodnar BBI32   http://www.leobodnar.com/</Description>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
-    <PackageReference Include="Usb.Hid.Connection" Version="2.0.0" />
+    <PackageReference Include="Usb.Hid.Connection" Version="2.0.1" />
   </ItemGroup>
 
 </Project>
