@@ -68,10 +68,18 @@ namespace Usb.Hid.Connection
             lastBuffer = new byte[this.ReadLength];
 
             ContinueProcessing = true;
+            CancellationTokenSource = new CancellationTokenSource();
 
-            SerialProcessingTask = Task.Factory.StartNew(() => ReadSerial(),
-                CancellationToken.None, TaskCreationOptions.LongRunning, TaskScheduler.Default)
-                .ContinueWith(t => logger?.LogError($"Controller Exception: {t.Exception}"), TaskContinuationOptions.OnlyOnFaulted);
+            // StartNew wraps the task.  Call Unwrap() to get the real task.
+            SerialProcessingTask = Task.Factory.StartNew(async () => await ReadSerial(CancellationTokenSource.Token).ConfigureAwait(false),
+                CancellationTokenSource.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default).Unwrap();
+
+            // Log all the ways that this can stop
+            SerialProcessingTask.ContinueWith(t => {
+                     if (t.IsCanceled) logger?.LogDebug("Controller ReadSerial() cancelled");
+                     else if (t.IsFaulted) logger?.LogError($"Controller ReadSerial() Exception: {t.Exception.InnerException?.Message}");
+                     else logger?.LogDebug("Controller ReadSerial() complete");
+                 });
         }
 
         /// <summary>
@@ -105,11 +113,23 @@ namespace Usb.Hid.Connection
         }
 
         /// <summary>
+        /// Stops the reader.
+        /// </summary>
+        public void Stop()
+        {
+            ContinueProcessing = false;
+            CancellationTokenSource.Cancel();
+            SerialProcessingTask.Wait();
+        }
+
+        /// <summary>
         /// Releases the associated ressources.
         /// </summary>
         public void Close()
         {
+            Stop();
             this.stream?.Dispose();
+            CancellationTokenSource?.Dispose();
         }
     }
 }

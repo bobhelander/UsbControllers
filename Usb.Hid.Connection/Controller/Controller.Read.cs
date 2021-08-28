@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Usb.Hid.Connection.models;
 using Microsoft.Extensions.Logging;
+using System.Threading;
 
 namespace Usb.Hid.Connection
 {
@@ -38,6 +39,11 @@ namespace Usb.Hid.Connection
         public bool ContinueProcessing { get; set; }
 
         /// <summary>
+        /// CancellationTokenSource to stop the asynchronous reader.
+        /// </summary>
+        private CancellationTokenSource CancellationTokenSource { get; set; }
+
+        /// <summary>
         /// Flag when the USB device continuously sends reports.  Setting this will compare the reports
         /// and only send when the reports change.
         /// </summary>
@@ -67,7 +73,7 @@ namespace Usb.Hid.Connection
         /// Reads a message from the device
         /// </summary>
         /// <returns></returns>
-        private async Task ReadSerial()
+        private async Task ReadSerial(CancellationToken cancellationToken)
         {
             ulong counter = 0;
             while (ContinueProcessing)
@@ -75,7 +81,7 @@ namespace Usb.Hid.Connection
                 // Round robin the available buffers
                 var bufferIndex = (int)(counter % readBufferCount);
 
-                var size = await this.stream.ReadAsync(readBuffers[bufferIndex], 0, ReadLength).ConfigureAwait(false);
+                var size = await this.stream.ReadAsync(readBuffers[bufferIndex], 0, ReadLength, cancellationToken).ConfigureAwait(false);
 
                 if (ContinuousUsb)
                     await ProcessSerialMessageRemoveJitter(size, readBuffers[bufferIndex], ReadLength, counter).ConfigureAwait(false);
