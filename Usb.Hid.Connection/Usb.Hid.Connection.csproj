@@ -7,12 +7,13 @@
     <Company />
     <Product>Usb.Hid.Connection</Product>
     <Description>Observable USB connection.   Written to help with connecting to HID devices and remapping controller buttons.</Description>
-    <Version>2.0.3</Version>
+    <Version>2.0.4</Version>
     <PackageLicenseUrl>https://github.com/bobhelander/UsbControllers/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/bobhelander/UsbControllers</PackageProjectUrl>
     <RepositoryUrl>https://github.com/bobhelander/UsbControllers</RepositoryUrl>
     <PackageTags>USB, Joystick</PackageTags>
-    <PackageReleaseNotes>2.0.3 Implement IDisposable on Controller.
+    <PackageReleaseNotes>2.0.4 Update Microsoft.Logging.Abstractions to 6.0.0
+2.0.3 Implement IDisposable on Controller.
 2.0.2 Additional method to enumerate device paths. Attempt to open connection with different options when first attempt fails.
 2.0.1 Fixed asynchronous reading.
 2.0.0 Removed Log4Net and replaced with Microsoft.Extensions.Logging.  Breaking: All Constructors updated with new parameters.
@@ -23,7 +24,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
   </ItemGroup>
 
 </Project>
