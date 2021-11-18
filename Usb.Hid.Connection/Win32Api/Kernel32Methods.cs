@@ -41,7 +41,17 @@ namespace Usb.Hid.Connection.Win32Api
             FileShare shareMode,
             IntPtr security,
             FileMode creationFlags,
-            Win32FileAttributes attributes,
+            uint fileAttributes, // Win32FileAttributes
+            IntPtr template);
+
+        [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern SafeFileHandle CreateFileW(
+            [MarshalAs(UnmanagedType.LPWStr)] string name,
+            [MarshalAs(UnmanagedType.U4)] Win32FileAccess desiredAccess,
+            [MarshalAs(UnmanagedType.U4)] FileShare shareMode,
+            IntPtr security,
+            [MarshalAs(UnmanagedType.U4)] FileMode creationFlags,
+            [MarshalAs(UnmanagedType.U4)] Win32FileAttributes attributes,
             IntPtr template);
     }
 }

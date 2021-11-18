@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace ConsoleApp1
 {
     internal static class Program
     {
+        public class LogTest { }
         /// <summary>
         /// Just testing things...
         /// </summary>
@@ -18,6 +20,18 @@ namespace ConsoleApp1
         {
             try
             {
+                const ushort TTC_VENDORID = 0xF00F;
+                const ushort TTC_PRODUCTID_KEYBOARD = 0x00000003;
+                // \\?\hid#hidclass#1&1731f3ea&1&0000#{4d1e55b2-f16f-11cf-88cb-001111000030}\kbd
+                var test = Usb.Hid.Connection.Devices.RetrieveAllDevicePath(TTC_VENDORID, TTC_PRODUCTID_KEYBOARD).FirstOrDefault();
+
+                var list = Usb.Hid.Connection.Devices.RetrieveAllDevicePath().ToList();
+
+                var controller0 = new Controller(@"\\?\hid#hidclass#1&1731f3ea&1&0000#{4d1e55b2-f16f-11cf-88cb-001111000030}\kbd", new NullLogger<LogTest>());
+
+                
+
+
                 // A lot of commented out calls to different part of the code to determine that the libraries are doing what I want them to do.
 
                 //var paths = Devices.RetrieveAllDevicePath(

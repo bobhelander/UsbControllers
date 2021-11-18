@@ -52,26 +52,26 @@ namespace Usb.Hid.Connection
 
             // Create the file handler from the device path
             // Win10 requires shared access
-            //this.handle = Kernel32Methods.CreateFile(
-            //    devicePath, 
-            //    Win32Api.Win32FileAccess.GenericRead,// | Win32FileAccess.GenericWrite,
-            //    FileShare.ReadWrite, IntPtr.Zero, FileMode.Open, Win32FileAttributes.Overlapped, IntPtr.Zero);
+            if (OpenFileHandle(Win32FileAccess.GenericRead | Win32FileAccess.GenericWrite))
+                return;
 
-            this.handle = Kernel32Methods.CreateFile(
-                devicePath,
-                Win32Api.Win32FileAccess.GenericRead | Win32FileAccess.GenericWrite,
-                FileShare.ReadWrite, IntPtr.Zero, FileMode.Open, Win32FileAttributes.Overlapped, IntPtr.Zero);
-
-            //this.handle = Kernel32Methods.CreateFile(
-            //    devicePath,
-            //    Win32Api.Win32FileAccess.GenericRead | Win32FileAccess.GenericWrite,
-            //    FileShare.ReadWrite, IntPtr.Zero, FileMode.Open, Win32FileAttributes.Overlapped, IntPtr.Zero);
+            if (OpenFileHandle(0))
+                return;
 
             if (this.handle.IsInvalid)
             {
-                // TODO: raise a better exception
-                throw new Exception("Failed to create device file", new Win32Exception(Marshal.GetLastWin32Error()));
+                throw new Win32Exception(Marshal.GetLastWin32Error(), "Failed to create device file");
             }
+        }
+
+        private bool OpenFileHandle(Win32FileAccess desiredAccess)
+        {
+            handle = Kernel32Methods.CreateFile(
+                devicePath,
+                desiredAccess,
+                FileShare.ReadWrite, IntPtr.Zero, FileMode.Open, (uint)Win32FileAttributes.Overlapped, IntPtr.Zero);
+
+            return handle.IsInvalid == false;
         }
 
         /// <summary>

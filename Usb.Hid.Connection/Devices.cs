@@ -26,5 +26,14 @@ namespace Usb.Hid.Connection
                 .Where(d => d.DevicePath?.Contains(search) == true)
                 .Select(d => d.DevicePath);
         }
+
+        /// <summary>
+        /// Retrieves all device path strings.  Create a Controller from the path to interrogate device identifiers.
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<string> RetrieveAllDevicePath()
+        {
+            return Device.GetInterfaceDevices(HidStream.HidGuid).Select(d => d.DevicePath);
+        }
     }
 }
