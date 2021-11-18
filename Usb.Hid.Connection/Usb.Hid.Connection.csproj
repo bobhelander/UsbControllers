@@ -12,7 +12,8 @@
     <PackageProjectUrl>https://github.com/bobhelander/UsbControllers</PackageProjectUrl>
     <RepositoryUrl>https://github.com/bobhelander/UsbControllers</RepositoryUrl>
     <PackageTags>USB, Joystick</PackageTags>
-    <PackageReleaseNotes>2.0.1 Fixed asynchronous reading.
+    <PackageReleaseNotes>2.0.2 Additional method to enumerate device paths. Attempt to open connection with different options when first attempt fails.
+2.0.1 Fixed asynchronous reading.
 2.0.0 Removed Log4Net and replaced with Microsoft.Extensions.Logging.  Breaking: All Constructors updated with new parameters.
 1.1.2 Update dependencies
 1.1.1.1 Debug Build: Testing GetReport
