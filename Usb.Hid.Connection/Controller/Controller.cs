@@ -9,7 +9,7 @@ using Usb.Hid.Connection.models;
 
 namespace Usb.Hid.Connection
 {
-    public partial class Controller : IObservable<ReadBuffer>
+    public partial class Controller : IObservable<ReadBuffer>, IDisposable
     {
         private readonly List<IObserver<ReadBuffer>> observers = new List<IObserver<ReadBuffer>>();
 
@@ -118,8 +118,8 @@ namespace Usb.Hid.Connection
         public void Stop()
         {
             ContinueProcessing = false;
-            CancellationTokenSource.Cancel();
-            SerialProcessingTask.Wait();
+            CancellationTokenSource?.Cancel();
+            SerialProcessingTask?.Wait();
         }
 
         /// <summary>
@@ -131,5 +131,7 @@ namespace Usb.Hid.Connection
             this.stream?.Dispose();
             CancellationTokenSource?.Dispose();
         }
+
+        public void Dispose() => Close();
     }
 }
