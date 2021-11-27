@@ -153,8 +153,9 @@ namespace Usb.Hid.Connection
 
                         if (ContinuousUsbDebounce)
                         {
-                            // Debounce buffer across all ReadBuffers
-                            var buttons = DebounceButtons();
+                            // Debounce buffer across all ReadBuffers. The arrary should be length() == 9.
+                            var buttons = DebounceButtons(
+                                readBuffers.Select(x => BitConverter.ToUInt32(x, ContinuousUsbDebounceButtonsIndex)).ToArray());
 
                             // Replace the buttons
                             Array.Copy(BitConverter.GetBytes(buttons), 0, buffer, ContinuousUsbDebounceButtonsIndex, 4);
@@ -212,20 +213,34 @@ namespace Usb.Hid.Connection
         }
 
         /// <summary>
-        /// Read across all of the read buffers to determine if the button should be set
+        /// Read across all of the read buffers to determine if the button should be set.
         /// </summary>
         /// <returns>The state of the buttons after debouncing</returns>
-        private UInt32 DebounceButtons()
+        private static UInt32 DebounceButtons(uint[] buttons)
         {
-            var buttons = readBuffers.Select(x => BitConverter.ToUInt32(x, ContinuousUsbDebounceButtonsIndex)).ToArray();
-
             return CompareButtons(
-                CompareButtons(buttons[0], buttons[1], buttons[2]),
-                CompareButtons(buttons[3], buttons[4], buttons[5]),
-                CompareButtons(buttons[6], buttons[7], buttons[8]));
+                CompareButtons(
+                    CompareButtons(buttons[0], buttons[1], buttons[2]),
+                    CompareButtons(buttons[3], buttons[4], buttons[5]),
+                    CompareButtons(buttons[6], buttons[7], buttons[8])),
+                CompareButtons(
+                    CompareButtons(buttons[1], buttons[2], buttons[3]),
+                    CompareButtons(buttons[4], buttons[5], buttons[6]),
+                    CompareButtons(buttons[7], buttons[8], buttons[0])),
+                CompareButtons(
+                    CompareButtons(buttons[2], buttons[3], buttons[4]),
+                    CompareButtons(buttons[5], buttons[6], buttons[7]),
+                    CompareButtons(buttons[8], buttons[0], buttons[1])));
         }
 
-        private UInt32 CompareButtons(UInt32 A, UInt32 B, UInt32 C)
+        /// <summary>
+        /// This is comparing the entire set of buttons at once. It should return the average state across all three sets.  The states do not have to be in order.
+        /// </summary>
+        /// <param name="A">A recorded state</param>
+        /// <param name="B">A second recorded state</param>
+        /// <param name="C">A third recorded state</param>
+        /// <returns></returns>
+        private static UInt32 CompareButtons(UInt32 A, UInt32 B, UInt32 C)
         {
             // Truth Table
             // A  B  C  Result
