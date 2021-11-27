@@ -30,7 +30,7 @@ Leo Bodnar BBI32   http://www.leobodnar.com/</Description>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
-    <PackageReference Include="Usb.Hid.Connection" Version="2.0.4" />
+    <PackageReference Include="Usb.Hid.Connection" Version="2.0.5" />
   </ItemGroup>
 
 </Project>
