@@ -15,8 +15,9 @@ CH Products Pro Pedals
 Leo Bodnar BBI32   http://www.leobodnar.com/</Description>
     <PackageLicenseUrl>https://github.com/bobhelander/UsbControllers/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/bobhelander/UsbControllers</PackageProjectUrl>
-    <Version>2.0.4</Version>
-    <PackageReleaseNotes>2.0.4 New Usb.Hid.Connection version.
+    <Version>2.0.5</Version>
+    <PackageReleaseNotes>2.0.5 New Usb.Hid.Connection version.
+2.0.4 New Usb.Hid.Connection version.
 2.0.3 New Usb.Hid.Connection version.
 2.0.2 Fix in Usb.Hid.Connection to read correctly.
 2.0.1 Fixed dependencies.
