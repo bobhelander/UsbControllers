@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Usb.Hid.Connection;
@@ -16,7 +17,7 @@ namespace ConsoleApp1
         /// Just testing things...
         /// </summary>
         /// <param name="args"></param>
-        private static void Main(string[] args)
+        private static async Task Main(string[] args)
         {
             try
             {
@@ -29,7 +30,14 @@ namespace ConsoleApp1
 
                 var controller0 = new Controller(@"\\?\hid#hidclass#1&1731f3ea&1&0000#{4d1e55b2-f16f-11cf-88cb-001111000030}\kbd", new NullLogger<LogTest>());
 
-                
+                var message = GetMessage(0, 0, 0x05, 0, 0, 0, 0, 0);
+
+                var equal = controller0.FeatureLength == message.Length;
+
+
+                controller0.Feature = message;
+
+
 
 
                 // A lot of commented out calls to different part of the code to determine that the libraries are doing what I want them to do.
@@ -38,13 +46,17 @@ namespace ConsoleApp1
                 //    Usb.GameControllers.LeoBodnar.BBI32.Joystick.VendorId,
                 //    Usb.GameControllers.LeoBodnar.BBI32.Joystick.ProductId);
 
+                var paths = Devices.RetrieveAllDevicePath(
+                   Usb.GameControllers.Microsoft.Sidewinder.ForceFeedback2.Joystick.VendorId,
+                   Usb.GameControllers.Microsoft.Sidewinder.ForceFeedback2.Joystick.ProductId);
+
                 //var paths = Devices.RetrieveAllDevicePath(
                 //   Usb.GameControllers.Microsoft.Sidewinder.StrategicCommander.Joystick.VendorId,
                 //    Usb.GameControllers.Microsoft.Sidewinder.StrategicCommander.Joystick.ProductId);
 
-                var paths = Devices.RetrieveAllDevicePath(
-                    Usb.GameControllers.Thrustmaster.Warthog.Throttle.Joystick.VendorId,
-                    Usb.GameControllers.Thrustmaster.Warthog.Throttle.Joystick.ProductId);
+                //var paths = Devices.RetrieveAllDevicePath(
+                //    Usb.GameControllers.Thrustmaster.Warthog.Throttle.Joystick.VendorId,
+                //    Usb.GameControllers.Thrustmaster.Warthog.Throttle.Joystick.ProductId);
 
                 //var paths = Devices.RetrieveAllDevicePath(
                 //    Usb.GameControllers.CHProducts.ProPedals.Joystick.VendorId,
@@ -126,7 +138,7 @@ namespace ConsoleApp1
                         usb.Stop();
                     }
                 }
-                if (true)
+                if (false)
                 {
                     using (ILoggerFactory loggerFactory =
                         LoggerFactory.Create(builder => builder.AddSimpleConsole(options =>
@@ -162,6 +174,14 @@ namespace ConsoleApp1
 
                     controller.Initialize();
                 }
+                if (true)
+                {
+                    var controller = new Usb.GameControllers.Microsoft.Sidewinder.ForceFeedback2.Joystick(paths.First(), null);
+
+                    controller.Initialize();
+
+                    Console.ReadKey();
+                }
             }
             catch(Exception ex)
             {
@@ -170,6 +190,54 @@ namespace ConsoleApp1
 
             while (true) ;
             Console.ReadKey();
+        }
+
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        public struct SetFeatureKeyboard
+        {
+            public Byte ReportID;
+            public Byte CommandCode;
+            public uint Timeout;
+            public Byte Modifier;
+            public Byte Padding;
+            public Byte Key0;
+            public Byte Key1;
+            public Byte Key2;
+            public Byte Key3;
+            public Byte Key4;
+            public Byte Key5;
+        }
+
+        private static byte[] GetMessage(Byte Modifier, Byte Padding, Byte Key0, Byte Key1, Byte Key2, Byte Key3, Byte Key4, Byte Key5)
+        {
+            SetFeatureKeyboard KeyboardData = new SetFeatureKeyboard
+            {
+                ReportID = 1,
+                CommandCode = 2,
+                Timeout = 1000, //5 because we count in blocks of 5 in the driver
+                Modifier = Modifier,
+                //padding should always be zero.
+                Padding = Padding,
+                Key0 = Key0,
+                Key1 = Key1,
+                Key2 = Key2,
+                Key3 = Key3,
+                Key4 = Key4,
+                Key5 = Key5
+            };
+            //convert struct to buffer
+            return getBytesSFJ(KeyboardData, Marshal.SizeOf(KeyboardData));
+        }
+
+        //for converting a struct to byte array
+        private static byte[] getBytesSFJ(SetFeatureKeyboard sfj, int size)
+        {
+            byte[] arr = new byte[size];
+            IntPtr ptr = Marshal.AllocHGlobal(size);
+            Marshal.StructureToPtr(sfj, ptr, false);
+            Marshal.Copy(ptr, arr, 0, size);
+            Marshal.FreeHGlobal(ptr);
+            return arr;
         }
     }
 }

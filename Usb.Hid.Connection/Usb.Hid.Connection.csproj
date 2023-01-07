@@ -7,12 +7,13 @@
     <Company />
     <Product>Usb.Hid.Connection</Product>
     <Description>Observable USB connection.   Written to help with connecting to HID devices and remapping controller buttons.</Description>
-    <Version>2.0.5</Version>
+    <Version>2.1.0</Version>
     <PackageLicenseUrl>https://github.com/bobhelander/UsbControllers/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/bobhelander/UsbControllers</PackageProjectUrl>
     <RepositoryUrl>https://github.com/bobhelander/UsbControllers</RepositoryUrl>
     <PackageTags>USB, Joystick</PackageTags>
-    <PackageReleaseNotes>2.0.5 Attempt to remove more jitter in the button arrays.
+    <PackageReleaseNotes>2.1.0 Update logging dependency.
+2.0.5 Attempt to remove more jitter in the button arrays.
 2.0.4 Update Microsoft.Logging.Abstractions to 6.0.0
 2.0.3 Implement IDisposable on Controller.
 2.0.2 Additional method to enumerate device paths. Attempt to open connection with different options when first attempt fails.
@@ -25,7 +26,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
   </ItemGroup>
 
 </Project>
